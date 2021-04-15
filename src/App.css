@@ -1,0 +1,27 @@
+.header-left {
+  padding: 12px 10px 10px 12px;
+  margin-left: 15px;
+  color: #f1f1f1;
+  float: left;
+  margin-top: 20px;
+}
+.header-right {
+  padding: 12px 10px 10px 12px;
+  margin-right: 15px;
+  color: #f1f1f1;
+  float: right;
+  margin-top: 20px;
+}
+
+
+.img{
+  margin-left: 15px;  
+  margin-top: 25px; 
+  padding-right: 10px;
+  float: left;
+}
+
+
+
+
+
