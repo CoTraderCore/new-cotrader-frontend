@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 
-export class FundManagers extends Component {
-  static displayName = FundManagers.name;
+export function FundManagers(){
 
-  render () {
+
     return (
-        <div>
+        <div class ="container">
       
 <h3>Functional Programming with JavaScript</h3>
 <p>When you start to explore the world of React programming, you’ll notice that the
@@ -20,4 +19,3 @@ your knowledge of structuring React applications.</p>
       </div>
 );  
   }
-}

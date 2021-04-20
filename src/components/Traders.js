@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 
 
-export class Traders extends Component {
-  static displayName = Traders.name;
+export function Traders() {
 
-  render () {
+
+  
     return (
-      <div>
+      <div class ="container">
 <h3>Keeping Up with the Changes</h3>
 <p>As changes are made to React and related tools, sometimes there are breaking
 changes. In fact, some of the future versions of these tools may break some of the
@@ -23,4 +23,3 @@ the talks on YouTube following the events.</p>
 
 );  
   }
-}
