@@ -39,9 +39,10 @@ export function Smartfunds() {
            <th scope="col-sm-2"> Name </th>
            <th scope="col-sm-1"> Profit In ETH </th>
            <th scope="col-sm-2"> Profit In USD </th>
+           <th scope="col-sm-1"> Top Assets </th>
            <th scope="col-sm-1"> Value In ETH </th>
            <th scope="col-sm-1"> Value In USD </th>
-            <th scope="col-sm-1"> Core Asset </th>
+            
            <th scope="col-sm-1"> Version </th>
        </tr>
    </thead>
@@ -54,10 +55,19 @@ export function Smartfunds() {
           <td>{userData.name}</td>
          <td> {userData.profitInETH}</td>
           <td>{userData.profitInUSD}</td>
-         <td> {userData.valueInETH}</td>
+         
+          <td> {JSON.parse(userData.balance).map(balance => { 
+            return(
+            <item key={balance.address} id ={balance.address}> 
+            
+              <img  height="30px" width="30px" 
+              src={`https://token.enzyme.finance/${balance.address}`} />
+            
+           </item>)})}</td>
+           
+            <td> {userData.valueInETH}</td>
           <td>{userData.valueInUSD}</td>
-          <td>{userData.mainAsset} </td>
-         <td>{userData.version}</td>
+           <td>{userData.version}</td>
       
          </tr>
    ))}
