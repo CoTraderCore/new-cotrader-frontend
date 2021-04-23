@@ -61,7 +61,7 @@ export function Smartfunds() {
             <item key={balance.address} id ={balance.address}> 
             
               <img  height="30px" width="30px" 
-              src={`https://token.enzyme.finance/${balance.address}`} />
+            src= {`https://token.enzyme.finance/${(balance.address).toLowerCase()}`} />
             
            </item>)})}</td>
            
