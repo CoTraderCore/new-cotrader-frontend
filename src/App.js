@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Smartfunds } from './components/Smartfunds';
 import { FundManagers } from './components/FundManagers';
 import { Traders } from './components/Traders';
+import Provider from './utils/Provider';
 import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import './App.css';
 import logo from './Icons/logo.png';
@@ -35,7 +36,7 @@ import option from './Icons/option.png';
             </div>
            
             <div class="navbar-nav ml-auto">
-                <a id="GFG" href="#" class="header-right wall">Connect Wallet</a>
+                <a id="GFG" href="/provider" class="header-right wall">Connect Wallet</a>
                 <a id="GFG" href="#" class="header-right section"><img src={setting}  alt='settings'/></a>
                 <a id="GFG" href="#" class="header-right section"><img src={option}  alt='option'/></a>
             </div>
@@ -46,11 +47,12 @@ import option from './Icons/option.png';
   <hr/>
   </React.Fragment>    
           
-           <switch>
+           <Switch>
             <Route exact path='/' component={Smartfunds} />
-             <Route path='/fundmanagers' component={FundManagers} />
+            <Route path='/fundmanagers' component={FundManagers} />
             <Route path='/traders' component={Traders} />
-            </switch>
+            <Route path='/provider' component={Provider} />
+            </Switch>
           
         
           </Router>
