@@ -48,8 +48,8 @@ export function Packs() {
         <thead>
           <tr>
             <th scope="col-sm-2"> Name </th>
-            <th scope="col-sm-1"> Profit In ETH </th>
-            <th scope="col-sm-2"> Profit In USD </th>
+            <th scope="col-sm-1"> Growth In ETH </th>
+            <th scope="col-sm-2"> Growth In USD </th>
             <th scope="col-sm-1"> Top Assets </th>
             <th scope="col-sm-1"> Value In ETH </th>
             <th scope="col-sm-1"> Value In USD </th>
