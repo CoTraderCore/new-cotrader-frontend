@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 import { APIEnpoint } from "../config";
 import "./Nav.css";
 
-export function Smartfunds() {
+export function Packs() {
   const [userData, setUserData] = useState({});
 
   useEffect(() => {

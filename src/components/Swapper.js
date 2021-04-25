@@ -1,6 +1,6 @@
 import React from "react";
 
-export function Traders() {
+export function Swapper() {
   return (
     <div class="container">
       <h3>Keeping Up with the Changes</h3>

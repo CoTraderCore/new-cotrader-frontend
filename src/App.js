@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Smartfunds } from "./components/Smartfunds";
-import { FundManagers } from "./components/FundManagers";
-import { Traders } from "./components/Traders";
+import { Packs } from "./components/Packs";
+import { Swapper } from "./components/Swapper";
 import ViewFund from "./components/ViewFund";
 import ConnectWallet from './components/ConnectWallets'
 import {walletStore} from "./models/wallet_model";
@@ -24,7 +23,7 @@ import option from "./Icons/option.png";
 export default function App() {
   return (
     <Router>
-      <React.Fragment>
+      
         <nav class="navbar navbar-expand  text-white">
           <div class="container-fluid">
             <button
@@ -42,17 +41,12 @@ export default function App() {
               </a>
               <a id="GFG" class="nav-item header-left" href="/">
                 {" "}
-                Smartfunds{" "}
+                Packs{" "}
               </a>
 
-              <a id="GFG" class="nav-item header-left" href="/fundmanagers">
+              <a id="GFG" class="nav-item header-left" href="/swapper">
                 {" "}
-                Fund Managers
-              </a>
-
-              <a id="GFG" class="nav-item header-left" href="/traders">
-                {" "}
-                Traders{" "}
+                Swapper{" "}
               </a>
             </div>
 
@@ -68,12 +62,11 @@ export default function App() {
           </div>
         </nav>
         <hr />
-      </React.Fragment>
+      
 
       <Switch> 
-        <Route exact path="/" component={Smartfunds} />
-        <Route path="/fundmanagers" component={FundManagers} />
-        <Route path="/traders" component={Traders} />
+        <Route exact path="/" component={Packs} />
+        <Route path="/swapper" component={Swapper} />
         <Route path="/fund/:address" render={(props)=><ViewFund {...props}/>} />
       </Switch>
     </Router>
