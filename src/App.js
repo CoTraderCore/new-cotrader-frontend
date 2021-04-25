@@ -4,6 +4,8 @@ import { Smartfunds } from "./components/Smartfunds";
 import { FundManagers } from "./components/FundManagers";
 import { Traders } from "./components/Traders";
 import ViewFund from "./components/ViewFund";
+import ConnectWallet from './components/ConnectWallets'
+import {walletStore} from "./models/wallet_model";
 
 import {
   Collapse,
@@ -55,9 +57,7 @@ export default function App() {
             </div>
 
             <div class="navbar-nav ml-auto">
-              <a id="GFG" href="#" class="header-right wall">
-                Connect Wallet
-              </a>
+            <ConnectWallet store={walletStore}/>
               <a id="GFG" href="#" class="header-right section">
                 <img src={setting} alt="settings" />
               </a>
@@ -70,12 +70,12 @@ export default function App() {
         <hr />
       </React.Fragment>
 
-      <switch> 
+      <Switch> 
         <Route exact path="/" component={Smartfunds} />
         <Route path="/fundmanagers" component={FundManagers} />
         <Route path="/traders" component={Traders} />
         <Route path="/fund/:address" render={(props)=><ViewFund {...props}/>} />
-      </switch>
+      </Switch>
     </Router>
   ); 
 }
