@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Button } from "react-bootstrap"
 import { BloxyLink } from '../config.js'
-import './Nav.css';
+import "../stylesheet/nav.css";
 class Stock extends Component {
 
     render() {

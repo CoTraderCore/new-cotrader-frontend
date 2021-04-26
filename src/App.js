@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Packs } from "./components/Packs";
-import { Swapper } from "./components/Swapper";
+import { ForDepositors } from "./components/ForDepositors";
+import { ForpackManagers } from "./components/ForpackManagers";
 import ViewFund from "./components/ViewFund";
 import ConnectWallet from './components/ConnectWallets'
 import {walletStore} from "./models/wallet_model";
+
 
 import {
   Collapse,
@@ -41,12 +42,12 @@ export default function App() {
               </a>
               <a id="GFG" class="nav-item header-left" href="/">
                 {" "}
-                Packs{" "}
+                For Depositors{" "}
               </a>
 
-              <a id="GFG" class="nav-item header-left" href="/swapper">
+              <a id="GFG" class="nav-item header-left" href="/forfundmanagers">
                 {" "}
-                Swapper{" "}
+                For Pack Managers{" "}
               </a>
             </div>
 
@@ -65,8 +66,8 @@ export default function App() {
       
 
       <Switch> 
-        <Route exact path="/" component={Packs} />
-        <Route path="/swapper" component={Swapper} />
+        <Route exact path="/" component={ForDepositors} />
+        <Route path="/forpackmanagers" component={ForpackManagers} />
         <Route path="/fund/:address" render={(props)=><ViewFund {...props}/>} />
       </Switch>
     </Router>

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from 'react-router-dom'
 import { APIEnpoint } from "../config";
+import {Tokenimagelink} from "../config";
 
-
-import "./Nav.css";
+import "../stylesheet/nav.css";
 import Stock from './Stock';
 
 export function ForDepositors() {
@@ -99,7 +99,7 @@ export function ForDepositors() {
                           height="30px"
                           width="30px"
 
-                         src={`https://token.enzyme.finance/${(balance.address).toLowerCase()}`}
+                         src={Tokenimagelink + `${(balance.address).toLowerCase()}`}
                         />
                       </item>
                     );
