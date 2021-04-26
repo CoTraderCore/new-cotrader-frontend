@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from 'react-router-dom'
 import { APIEnpoint } from "../config";
-import Filter from 'react-filter';
+
 
 import "./Nav.css";
 import Stock from './Stock';
 
 export function ForDepositors() {
   const [userData, setUserData] = useState({});
- const [q, setQ] = useState("");
+ 
 
   useEffect(() => {
     console.log('Hello')
@@ -22,9 +22,7 @@ export function ForDepositors() {
     setUserData(jsonData);
   };
 
-  function search(rows){
-    return rows.filter((rows)=>rows.name.toLowercase().indexof(q)>-1);
-  }
+ 
 
   return (
     <div class="layout ">
@@ -53,7 +51,7 @@ export function ForDepositors() {
 
       <hr />
       <input id=" filter" class="pl-10 block w-full py-2 rounded-md transition dark:bg-gray-800 disabled:opacity-25 border border-gray-700 
-      focus:border-gray-400 focus:outline-none focus:ring-0 duration-150 ease-in-out sm:text-sm sm:leading-5 dark:text-white shadow-sm" type="text" value={q} onChange={(e)=> setQ(e.target.value)}/>{"  "}<label id=" filter" class="filter" value={q}>Filters</label>
+      focus:border-gray-400 focus:outline-none focus:ring-0 duration-150 ease-in-out sm:text-sm sm:leading-5 dark:text-white shadow-sm" type="text" value="" />{"  "}<label id=" filter" class="filter" value="">Filters</label>
       <label id="sort" class ="sort"value="sortby"></label>Sort by: <select class="pl-10 block w-full py-2 rounded-md transition dark:bg-gray-800 disabled:opacity-25 border border-gray-700 
       focus:border-gray-400 focus:outline-none focus:ring-0 duration-150 ease-in-out sm:text-sm sm:leading-5 dark:text-white shadow-sm" >
                            <option value="1">Name (Descending)</option>
@@ -100,7 +98,8 @@ export function ForDepositors() {
                         <img class="coins"
                           height="30px"
                           width="30px"
-                          src={`https://token.enzyme.finance/${balance.address}`}
+
+                         src={`https://token.enzyme.finance/${(balance.address).toLowerCase()}`}
                         />
                       </item>
                     );
