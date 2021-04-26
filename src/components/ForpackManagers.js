@@ -1,6 +1,6 @@
 import React from "react";
 
-export function Swapper() {
+export function ForpackManagers() {
   return (
     <div class="container">
       <h3>Keeping Up with the Changes</h3>
