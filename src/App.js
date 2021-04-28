@@ -16,7 +16,7 @@ import {
   NavItem,
   NavLink,
 } from "reactstrap";
-import "./App.css";
+import "./stylesheet/App.css";
 import logo from "./Icons/logo.png";
 import setting from "./Icons/setting.png";
 import option from "./Icons/option.png";
