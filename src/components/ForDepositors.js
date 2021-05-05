@@ -2,23 +2,29 @@ import React, { useState, useEffect } from "react";
 import { NavLink } from 'react-router-dom'
 import { APIEnpoint } from "../config";
 import {Tokenimagelink} from "../config";
-
+import {walletStore} from "../models/wallet_model";
+import Web3 from "web3";
+import { observer } from "mobx-react";
 import "../stylesheet/nav.css";
 import Stock from './Stock';
 
-export function ForDepositors() {
+export const ForDepositors=observer(()=> {
   const [userData, setUserData] = useState({});
- 
 
   useEffect(() => {
-    console.log('Hello')
+    var web3 = new Web3(
+      new Web3.providers.HttpProvider("https://bsc-dataseed.binance.org/")
+    );
+    walletStore.web3=web3;
+    console.log(web3.currentProvider);
+    
     getGitHubUserWithFetch();
-  }, []);
+  },[]);
 
   const getGitHubUserWithFetch = async () => {
     const response = await fetch(APIEnpoint);
     const jsonData = await response.json();
-    console.log(jsonData)
+    // console.log(jsonData)
     setUserData(jsonData);
   };
 
@@ -117,4 +123,4 @@ export function ForDepositors() {
           
     </div>
   );
-}
+})

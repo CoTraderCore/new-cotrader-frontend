@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { observer } from "mobx-react";
+import Web3 from "web3";
 
 const ConnectWallet = observer((props) => {
-  console.log(props)
   const connectWallet = async () => {
     try {
       await props.store.getweb3();
       props.store.accounts = await props.store.web3.eth.getAccounts();
-      
     } catch (e) {
       console.log(e);
     }
@@ -15,18 +14,27 @@ const ConnectWallet = observer((props) => {
 
   const disconnectWallet = async () => {
     try {
+      // console.log(props.store.web3.currentProvider)
       props.store.web3Modal.clearCachedProvider();
-      props.store.account=false
-      props.store.web3Modal=null
+      props.store.account = false;
+      props.store.web3Modal = null;
+      var web3 = new Web3(
+        new Web3.providers.HttpProvider("https://bsc-dataseed.binance.org/")
+      );
+      props.store.web3=web3;
+      // console.log(props.store.web3.currentProvider)
     } catch (e) {
       console.log(e);
     }
   };
 
   useEffect(() => {
+
     async function getBalance() {
       if (props.store.accounts && props.store.web3) {
-        const balance = await props.store.web3.eth.getBalance(props.store.accounts[0]);
+        const balance = await props.store.web3.eth.getBalance(
+          props.store.accounts[0]
+        );
         props.store.balance = parseFloat(
           props.store.web3.utils.fromWei(balance.toString())
         ).toFixed(4);
