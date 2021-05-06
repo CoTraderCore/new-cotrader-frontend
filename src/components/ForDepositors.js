@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { NavLink } from 'react-router-dom'
 import { APIEnpoint } from "../config";
 import {Tokenimagelink} from "../config";
-import {walletStore} from "../models/wallet_model";
+import {walletStore,mobxStorage} from "../models/wallet_model";
 import Web3 from "web3";
 import { observer } from "mobx-react";
 import "../stylesheet/nav.css";
