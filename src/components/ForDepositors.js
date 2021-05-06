@@ -7,13 +7,16 @@ import Web3 from "web3";
 import { observer } from "mobx-react";
 import "../stylesheet/nav.css";
 import Stock from "./Stock";
+import CreateNewFund from './actions/CreateNewFund'
 
 export const ForDepositors = observer(() => {
-  const [userData, setUserData] = useState();
+  const [userData, setUserData] = useState([]);
   const [keyword, setKeyword] = useState("");
+  const [pending, setPending] = useState(false);
+  const [txCount, setTxCount] = useState(0);
 
   useEffect(() => {
-    var web3 = new Web3(
+    var web3 = new Web3( 
       new Web3.providers.HttpProvider("https://bsc-dataseed.binance.org/")
     );
     walletStore.web3 = web3;
@@ -23,8 +26,9 @@ export const ForDepositors = observer(() => {
       const response = await fetch(APIEnpoint);
       const jsonData = await response.json();
       // console.log(jsonData)
-      setUserData(jsonData.result);
+
       mobxStorage.initSFList(jsonData.result);
+      setUserData(mobxStorage.SmartFunds);
     };
 
     getGitHubUserWithFetch();
@@ -41,6 +45,11 @@ export const ForDepositors = observer(() => {
       setUserData(mobxStorage.SmartFunds);
     } else setUserData(filtered);
   };
+
+  const updatePending = (_bool, _txCount) => {
+    setPending(_bool)
+    setTxCount(_txCount)
+  }
 
   return (
     <div class="layout ">
@@ -74,10 +83,11 @@ export const ForDepositors = observer(() => {
           updateList(e.target.value);
         }}
       />
+      <CreateNewFund account={walletStore.account} web3={walletStore.web3} accounts={walletStore.accounts} pending={updatePending}/>
       {"  "}
       <label id=" filter" class="filter" value="">
         Filters
-      </label>
+      </label> 
       <label id="sort" class="sort" value="sortby"></label>Sort by:{" "}
       <select
         class="pl-10 block w-full py-2 rounded-md transition dark:bg-gray-800 disabled:opacity-25 border border-gray-700 
