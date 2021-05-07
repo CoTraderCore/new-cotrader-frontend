@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { APIEnpoint } from "../config";
 import { Tokenimagelink } from "../config";
@@ -7,7 +7,8 @@ import Web3 from "web3";
 import { observer } from "mobx-react";
 import "../stylesheet/nav.css";
 import Stock from "./Stock";
-import CreateNewFund from './actions/CreateNewFund'
+import CreateNewFund from "./actions/CreateNewFund";
+import Panel from "./Panel";
 
 export const ForDepositors = observer(() => {
   const [userData, setUserData] = useState([]);
@@ -16,7 +17,7 @@ export const ForDepositors = observer(() => {
   const [txCount, setTxCount] = useState(0);
 
   useEffect(() => {
-    var web3 = new Web3( 
+    var web3 = new Web3(
       new Web3.providers.HttpProvider("https://bsc-dataseed.binance.org/")
     );
     walletStore.web3 = web3;
@@ -32,13 +33,17 @@ export const ForDepositors = observer(() => {
     };
 
     getGitHubUserWithFetch();
- 
   }, []);
 
   const updateList = (input) => {
     // console.log(input);
     const filtered = mobxStorage.SmartFunds.filter((userData) => {
-      return userData.name.toLowerCase().includes(input.toLowerCase());
+      return (
+        userData.name.toLowerCase().includes(input.toLowerCase()) ||
+        userData.profitInETH.toLowerCase().includes(input.toLowerCase()) ||
+        userData.profitInUSD.toLowerCase().includes(input.toLowerCase()) ||
+        userData.valueInUSD.toLowerCase().includes(input.toLowerCase())
+      );
     });
     if (input.length === 0) {
       // console.log(mobxStorage.SmartFunds);
@@ -47,12 +52,14 @@ export const ForDepositors = observer(() => {
   };
 
   const updatePending = (_bool, _txCount) => {
-    setPending(_bool)
-    setTxCount(_txCount)
-  }
+    setPending(_bool);
+    setTxCount(_txCount);
+  };
 
   return (
     <div class="layout ">
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <h2>
         Browse & Deposit
         <a id="GFG" class="grad" href="">
@@ -64,97 +71,97 @@ export const ForDepositors = observer(() => {
         {" "}
         Browse Leaderboard{" "}
       </a>
+      &nbsp;&nbsp;&nbsp;&nbsp;
       <a id="GFG" href="">
         {" "}
         Browse All
       </a>
+      &nbsp;&nbsp;&nbsp;&nbsp;
       <a id="GFG" href="">
         {" "}
         My Deposits{" "}
       </a>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <hr />
-      <input
-        id=" filter"
-        class="pl-10 block w-full py-2 rounded-md transition dark:bg-gray-800 disabled:opacity-25 border border-gray-700 
-      focus:border-gray-400 focus:outline-none focus:ring-0 duration-150 ease-in-out sm:text-sm sm:leading-5 dark:text-white shadow-sm"
-        type="text"
-        onChange={(e) => {
-          setKeyword(e.target.value);
-          updateList(e.target.value);
-        }}
-      />
+      <div>
       <CreateNewFund account={walletStore.account} web3={walletStore.web3} accounts={walletStore.accounts} pending={updatePending}/>
-      {"  "}
-      <label id=" filter" class="filter" value="">
-        Filters
-      </label> 
-      <label id="sort" class="sort" value="sortby"></label>Sort by:{" "}
-      <select
-        class="pl-10 block w-full py-2 rounded-md transition dark:bg-gray-800 disabled:opacity-25 border border-gray-700 
-      focus:border-gray-400 focus:outline-none focus:ring-0 duration-150 ease-in-out sm:text-sm sm:leading-5 dark:text-white shadow-sm"
-      >
-        <option value="1">Name (Descending)</option>
-        <option value="2">Name (Ascending)</option>
-        <option selected="3">AUM (Descending)</option>
-        <option value="4">AUM (Ascending)</option>
-        <option value="5">Since Inception (Descending)</option>
-        <option value="6">Since Inception (Ascending)</option>
-        <option value="7">This Month (Descending) </option>
-        <option value="8">This Month (Ascending)</option>
-        <option value="9">24H (Descending)</option>
-        <option value="10">24H (Ascending)</option>
-      </select>
-      <table>
-        <thead>
-          <tr>
-            <th scope="col"> Name </th>
-            <th scope="col"> Growth In ETH </th>
-            <th scope="col"> Growth In USD </th>
-            <th scope="col"> Top Assets </th>
-            <th scope="col"> Value In ETH </th>
-            <th scope="col"> Value In USD </th>
+        <input
+          class="search"
+          id="filter"
+          type="text"
+          placeholder="&#128269;Search Pack"
+          onChange={(e) => {
+            setKeyword(e.target.value);
+            updateList(e.target.value);
+          }}
+        />
+        
+        <Panel />
+      </div>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th class="wh"> Name</th>
+              <th class="wh">Growth In ETH </th>
 
-            <th scope="col"> 7d </th>
-          </tr>
-        </thead>
+              <th class="wh"> Growth In USD </th>
+              <th class="wh">Top Assets </th>
+              <th class="wh"> Value In ETH </th>
+              <th class="wh"> Value In USD </th>
 
-        <tbody>
-          {userData &&
-            userData.map((userData) => (
-              <tr key={userData.name}>
-                <td scope="row">
-                  <NavLink to={"/fund/" + userData.address}>
-                    {userData.name}
-                  </NavLink>
-                </td>
-                <td scope="row"> {userData.profitInETH}</td>
-                <td scope="row">{userData.profitInUSD}</td>
+              <th class="wh"> 7d </th>
+            </tr>
+          </thead>
 
-                <td scope="row">
-                  {" "}
-                  {JSON.parse(userData.balance).map((balance) => {
-                    return (
-                      <item key={balance.address} id={balance.address}>
-                        <img
-                          class="coins"
-                          height="30px"
-                          width="30px"
-                          src={
-                            Tokenimagelink + `${balance.address.toLowerCase()}`
-                          }
-                        />
-                      </item>
-                    );
-                  })}
-                </td>
+          <tbody>
+            {userData &&
+              userData.map((userData) => (
+                <tr key={userData.name}>
+                  <td>
+                    <NavLink
+                      style={{ fontSize: "14px" }}
+                      to={"/fund/" + userData.address}
+                    >
+                      {userData.name}
+                    </NavLink>
+                  </td>
+                  <td> {userData.profitInETH}</td>
+                  <td>{userData.profitInUSD}</td>
 
-                <td scope="row"> {userData.valueInETH}</td>
-                <td scope="row">{userData.valueInUSD}</td>
-                <td scope="row">{<Stock address={userData.address} />}</td>
-              </tr>
-            ))}
-        </tbody>
-      </table>
+                  <td>
+                    {" "}
+                    {JSON.parse(userData.balance).map((balance) => {
+                      return (
+                        <item key={balance.address} id={balance.address}>
+                          <img
+                            class="coins"
+                            height="30px"
+                            width="30px"
+                            src={
+                              Tokenimagelink +
+                              `${balance.address.toLowerCase()}`
+                            }
+                          />
+                        </item>
+                      );
+                    })}
+                  </td>
+
+                  <td> {userData.valueInETH}</td>
+                  <td>{userData.valueInUSD}</td>
+                  <td>{<Stock address={userData.address} />}</td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 });

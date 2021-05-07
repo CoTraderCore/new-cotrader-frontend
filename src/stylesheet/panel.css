@@ -1,0 +1,140 @@
+.leftside{
+    width: 390px;
+    margin-top: 20px;
+    margin-bottom:20px ;
+    
+   
+    height:100px;
+    border-radius: 2px;
+    border: 1px solid #535a5f;
+    box-sizing: border-box;
+    background-color: rgb(15, 22, 63);
+    
+    
+}
+
+.middle{
+    width: 390px;
+    margin-top: 20px;
+    margin-bottom:20px ;
+    margin-left: 23px;
+    
+    height:100px;
+    border-radius: 2px;
+    border: 1px solid #535a5f;
+    box-sizing: border-box;
+    background-color: rgb(15, 22, 63);
+    
+    
+}
+.rightside{
+    width: 390px;
+    margin-top: 20px;
+    margin-bottom:20px ;
+    margin-left: 23px;
+    margin-right: 0px;
+    height:100px;
+    border-radius: 2px;
+    border: 1px solid #535a5f;
+    box-sizing: border-box;
+    background-color: rgb(15, 22, 63);
+    
+    
+}
+
+.row{
+    align-items:center;
+    width:100%;
+margin-left: 0px;
+    margin-right: 40px;
+}
+
+ .slider{
+     width:100%;
+     width: 320px;
+     
+     cursor: pointer;
+     margin-left: 30px;
+     margin-top: 20px;
+     background: linear-gradient(to right, darkturquoise ,slateblue);
+     opacity: 0.7;
+     -webkit-transition: .2s;
+     transition: opacity .2s;
+
+     -webkit-appearance: none;
+    
+      height: 10px;
+     border-radius: 5px;
+     
+     outline: none;
+     
+   
+     
+ }
+ .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 20%;
+    background: white;
+    cursor: pointer;
+  }
+
+  .sort{
+    
+    width: 250px;
+    margin-top: 20px;
+    margin-bottom:0px ;
+    margin-left: 10px;
+     margin-right: 0px;
+       height:40px;
+       padding-left: 20px;
+       float: right;
+    box-sizing: border-box;
+    border: 1px solid #535a5f;
+    background-color: rgb(15, 22, 63);
+    font-family: cambria;
+    font-size: 14px;
+  }
+ .labelcaption{
+    margin-left: 20px;
+    margin-bottom: 10px;
+ }
+  
+a{
+    display: inline-block;
+    font-family: calibri;
+}
+
+ 
+.show{
+    background-color: rgb(10, 5, 82);
+    padding-left:10px ;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 10px;
+    margin-top: 20px;
+    border-radius: 2px;
+    border: 1px solid #535a5f;
+    box-sizing: border-box;
+    background-color: rgb(15, 22, 63);
+    
+}
+.show:hover{
+    background-color: rgb(14, 7, 104);
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+label{
+    margin-left: 20px;
+    margin-top: 10px;
+    font-size: 14px;
+    font-family: cambria;
+}
+
+.selection{
+    display: inline-block;
+}
