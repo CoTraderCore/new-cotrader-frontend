@@ -7,12 +7,14 @@ import Web3 from "web3";
 import { observer } from "mobx-react";
 import "../stylesheet/nav.css";
 import Stock from "./Stock";
-import Panel from './Panel'
+import CreateNewFund from "./actions/CreateNewFund";
+import Panel from "./Panel";
 
 export const ForDepositors = observer(() => {
-  const [userData, setUserData] = useState();
+  const [userData, setUserData] = useState([]);
   const [keyword, setKeyword] = useState("");
- 
+  const [pending, setPending] = useState(false);
+  const [txCount, setTxCount] = useState(0);
 
   useEffect(() => {
     var web3 = new Web3(
@@ -25,21 +27,23 @@ export const ForDepositors = observer(() => {
       const response = await fetch(APIEnpoint);
       const jsonData = await response.json();
       // console.log(jsonData)
-      setUserData(jsonData.result);
+
       mobxStorage.initSFList(jsonData.result);
+      setUserData(mobxStorage.SmartFunds);
     };
 
     getGitHubUserWithFetch();
- 
   }, []);
 
   const updateList = (input) => {
     // console.log(input);
     const filtered = mobxStorage.SmartFunds.filter((userData) => {
-      return userData.name.toLowerCase().includes(input.toLowerCase()) ||
-      userData.profitInETH.toLowerCase().includes(input.toLowerCase()) ||
-      userData.profitInUSD.toLowerCase().includes(input.toLowerCase()) ||
-      userData.valueInUSD.toLowerCase().includes(input.toLowerCase());
+      return (
+        userData.name.toLowerCase().includes(input.toLowerCase()) ||
+        userData.profitInETH.toLowerCase().includes(input.toLowerCase()) ||
+        userData.profitInUSD.toLowerCase().includes(input.toLowerCase()) ||
+        userData.valueInUSD.toLowerCase().includes(input.toLowerCase())
+      );
     });
     if (input.length === 0) {
       // console.log(mobxStorage.SmartFunds);
@@ -47,11 +51,15 @@ export const ForDepositors = observer(() => {
     } else setUserData(filtered);
   };
 
- 
+  const updatePending = (_bool, _txCount) => {
+    setPending(_bool);
+    setTxCount(_txCount);
+  };
 
   return (
     <div class="layout ">
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <h2>
         Browse & Deposit
         <a id="GFG" class="grad" href="">
@@ -59,7 +67,6 @@ export const ForDepositors = observer(() => {
           My Deposits{" "}
         </a>
       </h2>
-      
       <a id="GFG" href="">
         {" "}
         Browse Leaderboard{" "}
@@ -73,65 +80,87 @@ export const ForDepositors = observer(() => {
       <a id="GFG" href="">
         {" "}
         My Deposits{" "}
-      </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<hr />
-      <div><input class ="search" id="filter" type="text" placeholder="&#128269;Search Pack" onChange={(e) => {
-          setKeyword(e.target.value);
-          updateList(e.target.value);
-        }}/><Panel/></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      </a>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <hr />
       <div>
-      <table>
-        <thead>
-          <tr>
-        <th class="wh"> Name</th>
-            <th class="wh">Growth In ETH </th>
-            
-            <th class="wh"> Growth In USD </th>
-            <th class="wh">Top Assets </th>
-            <th class="wh"> Value In ETH </th>
-            <th class="wh"> Value In USD </th>
+      <CreateNewFund account={walletStore.account} web3={walletStore.web3} accounts={walletStore.accounts} pending={updatePending}/>
+        <input
+          class="search"
+          id="filter"
+          type="text"
+          placeholder="&#128269;Search Pack"
+          onChange={(e) => {
+            setKeyword(e.target.value);
+            updateList(e.target.value);
+          }}
+        />
+        
+        <Panel />
+      </div>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th class="wh"> Name</th>
+              <th class="wh">Growth In ETH </th>
 
-            <th class="wh"> 7d </th>
-          </tr>
-        </thead>
+              <th class="wh"> Growth In USD </th>
+              <th class="wh">Top Assets </th>
+              <th class="wh"> Value In ETH </th>
+              <th class="wh"> Value In USD </th>
 
-        <tbody>
-          {userData &&
-            userData.map((userData) => (
-              <tr key={userData.name}>
-                <td>
-                  <NavLink style={{fontSize:"14px"}} to={"/fund/" + userData.address}>
-                    {userData.name}
-                  </NavLink>
-                </td>
-                <td> {userData.profitInETH}</td>
-                <td >{userData.profitInUSD}</td>
+              <th class="wh"> 7d </th>
+            </tr>
+          </thead>
 
-                <td>
-                  {" "}
-                  {JSON.parse(userData.balance).map((balance) => {
-                    return (
-                      <item key={balance.address} id={balance.address}>
-                        <img
-                          class="coins"
-                          height="30px"
-                          width="30px"
-                          src={
-                            Tokenimagelink + `${balance.address.toLowerCase()}`
-                          }
-                        />
-                      </item>
-                    );
-                  })}
-                </td>
+          <tbody>
+            {userData &&
+              userData.map((userData) => (
+                <tr key={userData.name}>
+                  <td>
+                    <NavLink
+                      style={{ fontSize: "14px" }}
+                      to={"/fund/" + userData.address}
+                    >
+                      {userData.name}
+                    </NavLink>
+                  </td>
+                  <td> {userData.profitInETH}</td>
+                  <td>{userData.profitInUSD}</td>
 
-                <td > {userData.valueInETH}</td>
-                <td >{userData.valueInUSD}</td>
-                <td >{<Stock address={userData.address} />}</td>
-              </tr>
-            ))}
-        </tbody>
-      </table>
+                  <td>
+                    {" "}
+                    {JSON.parse(userData.balance).map((balance) => {
+                      return (
+                        <item key={balance.address} id={balance.address}>
+                          <img
+                            class="coins"
+                            height="30px"
+                            width="30px"
+                            src={
+                              Tokenimagelink +
+                              `${balance.address.toLowerCase()}`
+                            }
+                          />
+                        </item>
+                      );
+                    })}
+                  </td>
+
+                  <td> {userData.valueInETH}</td>
+                  <td>{userData.valueInUSD}</td>
+                  <td>{<Stock address={userData.address} />}</td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
