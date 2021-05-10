@@ -1,5 +1,5 @@
 .leftside{
-    width: 390px;
+    width: 389px;
     margin-top: 20px;
     margin-bottom:20px ;
     
@@ -14,10 +14,10 @@
 }
 
 .middle{
-    width: 390px;
+    width: 389px;
     margin-top: 20px;
     margin-bottom:20px ;
-    margin-left: 23px;
+    margin-left: 25px;
     
     height:100px;
     border-radius: 2px;
@@ -28,10 +28,10 @@
     
 }
 .rightside{
-    width: 390px;
+    width: 389px;
     margin-top: 20px;
     margin-bottom:20px ;
-    margin-left: 23px;
+    margin-left: 25px;
     margin-right: 0px;
     height:100px;
     border-radius: 2px;
@@ -81,45 +81,30 @@ margin-left: 0px;
     cursor: pointer;
   }
 
-  .sort{
-    
-    width: 250px;
-    margin-top: 20px;
-    margin-bottom:0px ;
-    margin-left: 10px;
-     margin-right: 0px;
-       height:40px;
-       padding-left: 20px;
-       float: right;
-    box-sizing: border-box;
-    border: 1px solid #535a5f;
-    background-color: rgb(15, 22, 63);
-    font-family: cambria;
-    font-size: 14px;
-  }
+  
  .labelcaption{
-    margin-left: 20px;
+    margin-left: 10px;
     margin-bottom: 10px;
  }
   
 a{
     display: inline-block;
-    font-family: calibri;
+    font-family: Segoe UI;
 }
 
  
 .show{
     background-color: rgb(10, 5, 82);
-    padding-left:10px ;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-right: 10px;
+    padding-left:9px ;
+    padding-top: 9px;
+    padding-bottom: 9px;
+    padding-right: 9px;
     margin-top: 20px;
     border-radius: 2px;
     border: 1px solid #535a5f;
     box-sizing: border-box;
     background-color: rgb(15, 22, 63);
-    
+    display: inline;
 }
 .show:hover{
     background-color: rgb(14, 7, 104);
@@ -130,9 +115,10 @@ a{
 
 label{
     margin-left: 20px;
-    margin-top: 10px;
+    margin-top: 15px;
     font-size: 14px;
-    font-family: cambria;
+    font-family: Segoe UI;
+   
 }
 
 .selection{

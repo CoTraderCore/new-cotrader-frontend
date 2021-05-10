@@ -57,16 +57,22 @@ export const ForDepositors = observer(() => {
   };
 
   return (
-    <div class="layout ">
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <h2>
+    <div class="layout">
+   
+      
+      <h4 >
         Browse & Deposit
+        
+        <CreateNewFund id ="GFG" class ="grad "account={walletStore.account} web3={walletStore.web3} accounts={walletStore.accounts} pending={updatePending}/> {" "} {" "} {" "}
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <a id="GFG" class="grad" href="">
           {" "}
-          My Deposits{" "}
+           My Deposits{" "}
         </a>
-      </h2>
+        
+      </h4>
+      
       <a id="GFG" href="">
         {" "}
         Browse Leaderboard{" "}
@@ -81,15 +87,11 @@ export const ForDepositors = observer(() => {
         {" "}
         My Deposits{" "}
       </a>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      
       <hr />
+      
       <div>
-      <CreateNewFund account={walletStore.account} web3={walletStore.web3} accounts={walletStore.accounts} pending={updatePending}/>
-        <input
+         <input
           class="search"
           id="filter"
           type="text"
@@ -99,13 +101,12 @@ export const ForDepositors = observer(() => {
             updateList(e.target.value);
           }}
         />
-        
         <Panel />
       </div>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <div>
-        <table>
+        <table >
           <thead>
             <tr>
               <th class="wh"> Name</th>

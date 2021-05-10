@@ -7,15 +7,16 @@ export default  function Panel(){
         
 
     return (
-        <div  >
+        <div>
+            
       {"  "}<a style={{marginLeft:'20px'}}class="show" onClick={()=>setShow(!show)} >Filters</a>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <label style={{marginRight:'10px'}}>Sort by:</label> <select style={{marginLeft:'10px'}}class="sort" > 
-                           <option value="1">Name (Descending)</option>
+      <label style={{marginRight:'0px'}}>Sort by:</label> <select style={{fontFamily:"segoe ui"}}> 
+                           <option  value="1">Name (Descending)</option>
                             <option value="2">Name (Ascending)</option>
                             <option selected="3">AUM (Descending)</option>
                             <option value="4">AUM (Ascending)</option>
