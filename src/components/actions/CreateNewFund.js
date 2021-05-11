@@ -5,7 +5,8 @@ import {
   SmartFundRegistryABIV9,
   SmartFundRegistryADDRESS,
 } from '../../config.js' 
-
+import MuiAlert from "@material-ui/lab/Alert";
+import Snackbar from '@material-ui/core/Snackbar';
 import { Modal, Form } from "react-bootstrap"
 import setPending from '../../utils/setPending'
 import UserInfo from '../templates/UserInfo'
@@ -13,6 +14,8 @@ import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import axios from 'axios'
+
+
 
 const ETH_ADDRESS = '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE'
 const USD_ADDRESS = '0xe9e7cea3dedca5984780bafc599bd69add087d56'
@@ -25,7 +28,25 @@ const CreateNewFund =(props)=> {
   const [FundAsset,setFundAsset]=useState('BNB')
   const [FundName,setFundName]=useState('')
   const [TradeVerification,setTradeVerification]=useState(true)
-  
+  const [open, setOpen] = useState(false);
+  function Alert(props) {
+    
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
+
+  const handleClick = () => {
+   setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+ 
 
   const createNewFund = async () =>{
   if(Percent > 0 && Percent <= 30){
@@ -84,10 +105,19 @@ const CreateNewFund =(props)=> {
   
     return (
       <div>
-        <Button variant="contained" color="primary" onClick={() => {props.account?setShow(true):alert('Please connect your account')}}>
-          Create fund
-        </Button>
+        <a id="GFG" class="grad"  onClick={() => {props.account?setShow(true):setOpen(true) } }>
+        
+        Create fund
+      </a>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+      <Alert onClose={handleClose} severity="warning">
+      Please Connect Your Account! 
+      </Alert>
+      </Snackbar>
 
+
+      
+        <div class="notify"><span id="notifyType" class=""></span></div>
         <Modal
           show={Show}
           onHide={() => modalClose()}
