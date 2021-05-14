@@ -1,5 +1,5 @@
 import React,{ useState } from 'react'
-
+import InputAdornment from '@material-ui/core/InputAdornment'
 import {
   APIEnpoint,
   SmartFundRegistryABIV9,
@@ -7,15 +7,14 @@ import {
 } from '../../config.js' 
 import MuiAlert from "@material-ui/lab/Alert";
 import Snackbar from '@material-ui/core/Snackbar';
-import { Modal, Form } from "react-bootstrap"
+import styled from 'styled-components'
 import setPending from '../../utils/setPending'
-import UserInfo from '../templates/UserInfo'
-import Button from '@material-ui/core/Button'
-import TextField from '@material-ui/core/TextField'
-import InputAdornment from '@material-ui/core/InputAdornment'
+import "../../stylesheet/create.css"
 import axios from 'axios'
-
-
+import { CloseButton } from 'react-bootstrap';
+import { Checkbox, Modal } from '@material-ui/core';
+import info from "../../Icons/info.png";
+import percent from "../../Icons/percent.png";
 
 const ETH_ADDRESS = '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE'
 const USD_ADDRESS = '0xe9e7cea3dedca5984780bafc599bd69add087d56'
@@ -29,6 +28,7 @@ const CreateNewFund =(props)=> {
   const [FundName,setFundName]=useState('')
   const [TradeVerification,setTradeVerification]=useState(true)
   const [open, setOpen] = useState(false);
+  
   function Alert(props) {
     
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -38,15 +38,113 @@ const CreateNewFund =(props)=> {
    setOpen(true);
   };
 
+  const Background = styled.div`
+  width: 100%;
+  height: 100%;
+  left: 0;
+   top: 0;
+   background: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+`
+
+
+const ModalWrapper = styled.div`
+width: 500px;
+  height: 650px;
+  box-sizing : border-box;
+  border: 7px solid linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%);
+  background: #fff;
+  color:#000066;
+  display: flex;
+  box-shadow: 0 0 12px #ffcc00;
+  border-radius: 12px;
+`
+const ModalContent = styled.div`
+position: relative;
+
+margin-top:15px;
+font-family: Bahnschrift;
+font-size: 17px;
+
+color:#000066;
+h2 {
+  margin: 0 0 20px;
+  font-weight: 400;
+  color: #000066;
+  
+}      
+span {
+  
+  display: block;
+  padding: 0 0 5px;
+
+  
+}
+form {
+  padding-top: 25px;
+  padding-left: 25px;
+  padding-bottom: 25px;
+  padding-right: 25px;
+
+  margin-top: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  background: #fff;
+  
+  
+  
+}
+input{
+  height: 40px;
+  width: 400px;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #32213e;
+  outline: none;
+  color:#000066;
+  background:#fff;
+  border-radius: 4px;
+  font-weight: 800;
+}
+
+select{
+  height: 40px;
+  width: 400px;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #32213e;
+  outline: none;
+  background:#fff;
+  color:#000066;
+  font-family: Bahnschrift;
+  border-radius: 4px;
+  font-weight: 800;
+}
+
+
+
+`
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
-
     setOpen(false);
   };
 
- 
+  const handleOpen = () => {
+    setShow(true);
+  };
+
+  const handleCross = () => {
+    setShow(false);
+  };
+
+  
 
   const createNewFund = async () =>{
   if(Percent > 0 && Percent <= 30){
@@ -101,11 +199,12 @@ const CreateNewFund =(props)=> {
     setTradeVerification(true)
 
   }
-
+  
   
     return (
+      <>
       <div>
-        <a id="GFG" class="grad"  onClick={() => {props.account?setShow(true):setOpen(true) } }>
+        <a id="GFG" class="grad"  onClick={() => {props.account?setShow(true):setOpen(true)} }>
         
         Create fund
       </a>
@@ -117,93 +216,53 @@ const CreateNewFund =(props)=> {
 
 
       
-        <div class="notify"><span id="notifyType" class=""></span></div>
-        <Modal
-          show={Show}
-          onHide={() => modalClose()}
-          aria-labelledby="example-modal-sizes-title-sm"
+      
+      {Show ? (
+        <Background
+          
+            
+          
         >
-          <Modal.Header closeButton>
-          <Modal.Title id="example-modal-sizes-title-sm">
-          Create new fund <small>(with multi DEX support)</small>
-          </Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-          <Form>
-
-          <Form.Group>
-          <TextField
-            id="outlined-name"
-            label="Fund name"
-            name="FundName"
-            onChange={e => setFundName(e.target.value)}
-            margin="normal"
-            variant="outlined"
-            style={{width:'100%'}}
-          />
-          </Form.Group>
-
-          <hr/>
-
-          <Form.Group>
-          <Form.Label>Performance Fee % <UserInfo  info="This is the % the fund manager earns for the profits earned, relative to main fund asset (BNB, USD or COT)."/></Form.Label>
-          <TextField
-            id="outlined-name"
-            label="Performance Fee"
-            name="Percent"
-            onChange={e => setPercent(e.target.value)}
-            margin="normal"
-            variant="outlined"
-            type="number"
-            placeholder="20"
-            style={{width:'100%'}}
-            InputProps={{
-              inputProps: { min: 1 },
+          
+          <ModalWrapper >
+          
+          <ModalContent>
+          <form >
+          <a onClick={modalClose} style={{float:'right', cursor:'pointer', width:'10px', height:'10px', color:'#fff'}} class="close">&times;</a>
+            <h2>Create new fund <h5>(with multi DEX support)</h5></h2>
+            <div>
+              <input  type="text" name="FundName" onClick={e => setFundName(e.target.value)} placeholder="Fund Name" />
+              <div style={{marginBottom:'5px'}}>Performance Fee % <a  data-toggle="popover" data-trigger="focus" title="This is the % the fund manager earns for the profits earned, relative to main fund asset (BNB, USD or COT)." ><img style={{marginLeft: '5px'}}src={info} /></a></div>
+              <input type="number" min="1"  max="100 " name="Percent"onClick={e => setPercent(e.target.value)} placeholder="20"  InputProps={{
+              
               startAdornment: (
                 <InputAdornment position="start">
-                  %
+                  <img src={percent}/>
                 </InputAdornment>
-              ),
-            }}
-          />
-          </Form.Group>
-
-          <hr/>
-
-          <Form.Group controlId="exampleForm.ControlSelect1">
-          <Form.Label>Main fund asset % <UserInfo  info="With the help of this asset, investors will invest, calculate fund value ect"/></Form.Label>
-          <Form.Control as="select" name="FundAsset" onChange={e => setFundAsset(e.target.value)}>
-            <option>BNB</option>
-            <option>USD</option>
-          </Form.Control>
-          </Form.Group>
-
-
-          <hr/>
-
-          <Form.Label>Limit Tokens <UserInfo  info="This gives investors confidence that even if the trader's key is stolen, the worst a hacker can do is trade to legit tokens, not likely to a token just created by the trader to exit scam the fund, leaving it without value."/></Form.Label>
-          <Form.Group>
-            <Form.Check
-            type="checkbox"
-            label="Use trade verifiaction"
+              )
+            }}/>
+             <div > Main fund asset % <a  data-toggle="popover" data-trigger="focus" title="With the help of this asset, investors will invest, calculate fund value ect" ><img style={{marginLeft: '5px'}}src={info} /></a></div>
+              <select type="select" name="FundAsset" onChange={e => setFundAsset(e.target.value)} >
+              <option value="BNB" selected>BNB</option>
+               <option value="USD">USD</option></select>
+                </div>
+                <div >Limit Tokens<a  data-toggle="popover" data-trigger="focus" title="This gives investors confidence that even if the trader's key is stolen, the worst a hacker can do is trade to legit tokens, not likely to a token just created by the trader to exit scam the fund, leaving it without value." >  <img style={{marginLeft: '5px'}} src={info} /></a></div>
+                <div><Checkbox style={{color:'#000066', float:'left' , display:'inline'}} type="checkbox"
+            value="Use trade verifiaction"
             checked={TradeVerification}
-            onChange={() => setTradeVerification(!TradeVerification)}
-            />
-          </Form.Group>
-
-           <Button
-           variant="contained"
-           color="primary"
-           onClick={() => createNewFund()}
-           >
-           Create
-           </Button>
-          </Form>
-          </Modal.Body>
-        </Modal>
-
-      </div>
-    )
+            onChange={() => setTradeVerification(!TradeVerification)} /><label style={{marginTop:'6px', paddingLeft:'0px', display:'left'}} value="Use trade verifiaction">Use Trade Verification</label></div>
+                 
+            <a style={{float:'left',background: '#000066', marginLeft:'-20px',marginTop:'40px' ,fontFamily:'Bahnschrift',fontSize:'20px', paddingLeft:'10px', paddingTop: '15px', paddingRight: '10px',paddingBottom: '15px', borderRadius:'4px', color:'#fff'}} type="submit" onClick={() => createNewFund()}>Create</a>
+          </form>
+          </ModalContent>
+            </ModalWrapper>
+        </Background>
+      ) : null}
+    
+    </div>
+      
+      </>
+    );
   
 }
 
