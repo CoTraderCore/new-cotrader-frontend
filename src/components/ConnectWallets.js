@@ -50,7 +50,7 @@ const ConnectWallet = observer((props) => {
         <span>
           {props.store.accounts ? (
             <div>
-              <span>Address:{props.store.accounts[0]}</span>
+             <span>Address:{props.store.accounts[0]}</span>
               <br />
               <span>
                 Balance:{props.store.balance} ETH

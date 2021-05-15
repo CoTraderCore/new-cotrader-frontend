@@ -9,7 +9,7 @@ import MuiAlert from "@material-ui/lab/Alert";
 import Snackbar from '@material-ui/core/Snackbar';
 import styled from 'styled-components'
 import setPending from '../../utils/setPending'
-import "../../stylesheet/create.css"
+
 import axios from 'axios'
 import { CloseButton } from 'react-bootstrap';
 import { Checkbox, Modal } from '@material-ui/core';
@@ -181,7 +181,10 @@ select{
         console.log("Error", e)
       }
     }else{
+    
+      
       alert('Please input fund name')
+    
     }
   }else{
     alert('Please select correct percent, we support from 0.01% to 30%')
@@ -228,7 +231,7 @@ select{
           
           <ModalContent>
           <form >
-          <a onClick={modalClose} style={{float:'right', cursor:'pointer', width:'10px', height:'10px', color:'#fff'}} class="close">&times;</a>
+          <a onClick={modalClose} style={{float:'right', cursor:'pointer', width:'10px', height:'10px', color:'#000066'}} class="close">&times;</a>
             <h2>Create new fund <h5>(with multi DEX support)</h5></h2>
             <div>
               <input  type="text" name="FundName" onClick={e => setFundName(e.target.value)} placeholder="Fund Name" />

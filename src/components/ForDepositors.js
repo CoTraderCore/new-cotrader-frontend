@@ -6,16 +6,19 @@ import { walletStore, mobxStorage } from "../models/wallet_model";
 import Web3 from "web3";
 import { observer } from "mobx-react";
 import "../stylesheet/nav.css";
+import "../stylesheet/create.css"
 import Stock from "./Stock";
 import CreateNewFund from "./actions/CreateNewFund";
 import Panel from "./Panel";
+import { SortedTable} from "./actions/SortedTable";
 
 export const ForDepositors = observer(() => {
   const [userData, setUserData] = useState([]);
   const [keyword, setKeyword] = useState("");
   const [pending, setPending] = useState(false);
   const [txCount, setTxCount] = useState(0);
-
+const[ sortedField, setSortedField]= useState(null)
+const [sortConfig, setSortConfig] = useState(null);
   useEffect(() => {
     var web3 = new Web3(
       new Web3.providers.HttpProvider("https://bsc-dataseed.binance.org/")
@@ -23,7 +26,7 @@ export const ForDepositors = observer(() => {
     walletStore.web3 = web3;
     //console.log(web3.currentProvider);
 
-    const getGitHubUserWithFetch = async () => {
+    const getFetch = async () => {
       const response = await fetch(APIEnpoint);
       const jsonData = await response.json();
       // console.log(jsonData)
@@ -32,7 +35,7 @@ export const ForDepositors = observer(() => {
       setUserData(mobxStorage.SmartFunds);
     };
 
-    getGitHubUserWithFetch();
+    getFetch();
   }, []);
 
   const updateList = (input) => {
@@ -55,6 +58,41 @@ export const ForDepositors = observer(() => {
     setPending(_bool);
     setTxCount(_txCount);
   };
+
+  const sortedList =(select) => {
+    const  sortedresult =() =>
+    {  userData.sort((a, b) => {
+        if (a[sortedField] < b[sortedField]) {
+          return -1;
+        }
+        if (a[sortedField] > b[sortedField]) {
+          return 1;
+        }
+        return 0;
+      });
+    mobxStorage.SmartFunds.sort((a, b) => {
+      if (a[sortConfig.key] < b[sortConfig.key]) {
+        return sortConfig.direction === 'ascending' ? -1 : 1;
+      }
+      if (a[sortConfig.key] > b[sortConfig.key]) {
+        return sortConfig.direction === 'ascending' ? 1 : -1;
+      }
+      return 0;
+    });
+    if (select.length === 0) {
+      // console.log(mobxStorage.SmartFunds);
+      setUserData(mobxStorage.SmartFunds);
+    } else setUserData(sortedresult);
+  };
+}
+    
+
+
+
+
+
+
+
 
   return (
     <div class="layout">
@@ -101,7 +139,13 @@ export const ForDepositors = observer(() => {
             updateList(e.target.value);
           }}
         />
-        <Panel />
+         <SortedTable select onChange={(e) => {
+            setSortedField(e.target.value);
+            sortedList(e.target.value);
+          }}/>
+         <Panel />
+        
+        
       </div>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -125,7 +169,7 @@ export const ForDepositors = observer(() => {
             {userData &&
               userData.map((userData) => (
                 <tr key={userData.name}>
-                  <td>
+                  <td  >
                     <NavLink
                       style={{ fontSize: "14px" }}
                       to={"/fund/" + userData.address}
@@ -136,7 +180,7 @@ export const ForDepositors = observer(() => {
                   <td> {userData.profitInETH}</td>
                   <td>{userData.profitInUSD}</td>
 
-                  <td>
+                  <td  >
                     {" "}
                     {JSON.parse(userData.balance).map((balance) => {
                       return (
