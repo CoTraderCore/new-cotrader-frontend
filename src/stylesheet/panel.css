@@ -6,7 +6,7 @@
    
     height:100px;
     border-radius: 2px;
-    border: 1px solid #535a5f;
+    border: 0.5px solid #535a5f;
     box-sizing: border-box;
     background-color: rgb(15, 22, 63);
     
@@ -21,7 +21,7 @@
     
     height:100px;
     border-radius: 2px;
-    border: 1px solid #535a5f;
+    border: 0.5px solid #535a5f;
     box-sizing: border-box;
     background-color: rgb(15, 22, 63);
     
@@ -35,7 +35,7 @@
     margin-right: 0px;
     height:100px;
     border-radius: 2px;
-    border: 1px solid #535a5f;
+    border: 0.5px solid #535a5f;
     box-sizing: border-box;
     background-color: rgb(15, 22, 63);
     
@@ -94,20 +94,20 @@ a{
 
  
 .show{
-    background-color: rgb(10, 5, 82);
+    background-color: rgb(47, 39, 94);
     padding-left:9px ;
     padding-top: 9px;
     padding-bottom: 9px;
     padding-right: 9px;
     margin-top: -90px;
-    border-radius: 2px;
-    border: 1px solid #535a5f;
+    border-radius: 4px;
+    border: 0.5px solid #022035;
     box-sizing: border-box;
     background-color: rgb(15, 22, 63);
     display: inline;
 }
 .show:hover{
-    background-color: rgb(14, 7, 104);
+    background-color: rgb(11, 53, 107);
     color: white;
     text-decoration: none;
     cursor: pointer;

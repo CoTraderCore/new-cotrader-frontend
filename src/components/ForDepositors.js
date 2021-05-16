@@ -11,6 +11,7 @@ import Stock from "./Stock";
 import CreateNewFund from "./actions/CreateNewFund";
 import Panel from "./Panel";
 import { SortedTable} from "./actions/SortedTable";
+import sort from "../Icons/sort.png"
 
 export const ForDepositors = observer(() => {
   const [userData, setUserData] = useState([]);
@@ -153,15 +154,15 @@ const [sortConfig, setSortConfig] = useState(null);
         <table >
           <thead>
             <tr>
-              <th class="wh"> Name</th>
-              <th class="wh">Growth In ETH </th>
+              <th class="wh"> <a style={{cursor:"pointer"}}  >Name</a></th>
+              <th class="wh"><a  style={{cursor:"pointer"}} >Growth In ETH</a> </th>
 
-              <th class="wh"> Growth In USD </th>
-              <th class="wh">Top Assets </th>
-              <th class="wh"> Value In ETH </th>
-              <th class="wh"> Value In USD </th>
+              <th class="wh"><a  style={{cursor:"pointer"}} > Growth In USD </a></th>
+              <th class="wh"><a  style={{cursor:"pointer"}} onclick={<img src ={sort}/>} >Top Assets</a> </th>
+              <th class="wh"> <a  style={{cursor:"pointer"}} onclick={<img src ={sort}/>} >Value In ETH </a></th>
+              <th class="wh"><a  style={{cursor:"pointer"}} onclick={<img src ={sort}/>} > Value In USD </a></th>
 
-              <th class="wh"> 7d </th>
+              <th class="wh"> <a  style={{cursor:"pointer"}} onclick={<img src ={sort}/>} >7d</a> </th>
             </tr>
           </thead>
 
@@ -180,7 +181,7 @@ const [sortConfig, setSortConfig] = useState(null);
                   <td> {userData.profitInETH}</td>
                   <td>{userData.profitInUSD}</td>
 
-                  <td  >
+                  <td style={{flexDirection:"row-reverse"}} >
                     {" "}
                     {JSON.parse(userData.balance).map((balance) => {
                       return (

@@ -209,10 +209,10 @@ select{
       <div>
         <a id="GFG" class="grad"  onClick={() => {props.account?setShow(true):setOpen(true)} }>
         
-        Create fund
+        Create Fund
       </a>
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-      <Alert onClose={handleClose} severity="warning">
+      <Alert onClose={handleClose} severity="info">
       Please Connect Your Account! 
       </Alert>
       </Snackbar>

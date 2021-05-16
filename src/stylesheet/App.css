@@ -20,14 +20,14 @@ margin-bottom:0px
 
 hr {
   width: 100%;
-  border: 1px solid #535a5f;
+  border: 0.5px solid #022035;
   border-radius: 1px;
   margin-top: 0px;
   margin-bottom:10px ;
   }
 
 .img{
-  height: 25px;
+  height: 20px;
   margin-top: -3px;
   float: left;
   margin-bottom: 0px;
@@ -50,7 +50,7 @@ a {
 
 
 .wall{
-background-color:slateblue;
+background-color:rgb(47, 39, 94);
 border-radius: 4px;
 margin-right: 5px;
 text-align: center;
@@ -83,7 +83,7 @@ padding-bottom: 6px;
 }
 
 .wall:hover{
- background-color: rgb(160, 132, 235);
+ background-color: rgb(11, 53, 107);
 color: white;
 
 text-decoration: none;
