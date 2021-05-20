@@ -104,10 +104,11 @@ color:white;
   .coins{
     border-radius: 20px;
     margin-left: -15px;
-    display: inline-table;
+    display: inline;
     flex-direction: row-reverse;
-
+direction: ltr;
   }
+ 
  
   select{
     color: white;
@@ -180,4 +181,20 @@ color:white;
     color: white;
     background-color: rgb(11, 53, 107);
   }
+ 
+  thead a.ascending::after {
+    content: '↑ ';
+    display: inline-block;
+    margin-left: 1em;
+    color: white;
+  }
+  
+  thead a.descending::after {
+    content: '↓ ';
+    display: inline-block;
+    margin-left: 1em;
+    color: white;
+  
+  }
+ 
  

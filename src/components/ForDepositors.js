@@ -1,25 +1,26 @@
-import React, { useMemo, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { APIEnpoint } from "../config";
 import { Tokenimagelink } from "../config";
-import { walletStore, mobxStorage } from "../models/wallet_model";
+import { walletStore } from "../models/wallet_model";
+import {fundsStorage}from "../models/fundsStorage";
 import Web3 from "web3";
 import { observer } from "mobx-react";
 import "../stylesheet/nav.css";
-import "../stylesheet/create.css"
+
 import Stock from "./Stock";
 import CreateNewFund from "./actions/CreateNewFund";
 import Panel from "./Panel";
-import { SortedTable} from "./actions/SortedTable";
-import sort from "../Icons/sort.png"
+
+
 
 export const ForDepositors = observer(() => {
   const [userData, setUserData] = useState([]);
   const [keyword, setKeyword] = useState("");
   const [pending, setPending] = useState(false);
   const [txCount, setTxCount] = useState(0);
-const[ sortedField, setSortedField]= useState(null)
-const [sortConfig, setSortConfig] = useState(null);
+  const [sortType, setSortType] = useState('');
+
   useEffect(() => {
     var web3 = new Web3(
       new Web3.providers.HttpProvider("https://bsc-dataseed.binance.org/")
@@ -32,8 +33,8 @@ const [sortConfig, setSortConfig] = useState(null);
       const jsonData = await response.json();
       // console.log(jsonData)
 
-      mobxStorage.initSFList(jsonData.result);
-      setUserData(mobxStorage.SmartFunds);
+      fundsStorage.initSFList(jsonData.result);
+      setUserData(fundsStorage.SmartFunds);
     };
 
     getFetch();
@@ -41,7 +42,7 @@ const [sortConfig, setSortConfig] = useState(null);
 
   const updateList = (input) => {
     // console.log(input);
-    const filtered = mobxStorage.SmartFunds.filter((userData) => {
+    const filtered = fundsStorage.SmartFunds.filter((userData) => {
       return (
         userData.name.toLowerCase().includes(input.toLowerCase()) ||
         userData.profitInETH.toLowerCase().includes(input.toLowerCase()) ||
@@ -51,7 +52,7 @@ const [sortConfig, setSortConfig] = useState(null);
     });
     if (input.length === 0) {
       // console.log(mobxStorage.SmartFunds);
-      setUserData(mobxStorage.SmartFunds);
+      setUserData(fundsStorage.SmartFunds);
     } else setUserData(filtered);
   };
 
@@ -60,40 +61,43 @@ const [sortConfig, setSortConfig] = useState(null);
     setTxCount(_txCount);
   };
 
-  const sortedList =(select) => {
-    const  sortedresult =() =>
-    {  userData.sort((a, b) => {
-        if (a[sortedField] < b[sortedField]) {
-          return -1;
+
+  const sortedItems = React.useMemo(() => {
+    const sortableItems = [...userData]
+    if (sortType !== null) {
+      fundsStorage.SmartFunds.sort((a, b) => {
+        if (a[sortType.key] < b[sortType.key]) {
+          return sortType.direction === 'ascending' ? -1 : 1;
         }
-        if (a[sortedField] > b[sortedField]) {
-          return 1;
+        if (a[sortType.key] > b[sortType.key]) {
+          return sortType.direction === 'ascending' ? 1 : -1;
         }
         return 0;
       });
-    mobxStorage.SmartFunds.sort((a, b) => {
-      if (a[sortConfig.key] < b[sortConfig.key]) {
-        return sortConfig.direction === 'ascending' ? -1 : 1;
-      }
-      if (a[sortConfig.key] > b[sortConfig.key]) {
-        return sortConfig.direction === 'ascending' ? 1 : -1;
-      }
-      return 0;
-    });
-    if (select.length === 0) {
-      // console.log(mobxStorage.SmartFunds);
-      setUserData(mobxStorage.SmartFunds);
-    } else setUserData(sortedresult);
+    }
+    return sortableItems;
+  }, [userData, sortType]);
+
+  const requestSort = (key) => {
+    let direction = 'ascending';
+    if (
+      sortType &&
+      sortType.key === key &&
+      sortType.direction === 'ascending'
+    ) {
+      direction = 'descending';
+    }
+    setSortType({ key, direction });
   };
-}
-    
 
-
-
-
-
-
-
+  const getClassNamesFor = (name) => {
+    if (!sortType) {
+      return;
+    }
+    return sortType.key === name ? sortType.direction : undefined;
+  };
+  
+  
 
   return (
     <div class="layout">
@@ -140,10 +144,24 @@ const [sortConfig, setSortConfig] = useState(null);
             updateList(e.target.value);
           }}
         />
-         <SortedTable select onChange={(e) => {
-            setSortedField(e.target.value);
-            sortedList(e.target.value);
-          }}/>
+      <div>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<label >Sort by:</label> <select id="selection" style={{ fontFamily:"segoe ui"}}  onChange={(e)=>requestSort(e.target.value)}> 
+    
+<option value="name">Name (Descending)</option>
+              <option value="name" >Name (Ascending)</option>
+         <option value="profitInETH" >Growth In ETH (Ascending)</option>
+         <option value="profitInETH">Growth In ETH (Descending)</option>
+          <option value="profitInUSD"> Growth In USD (Ascending)</option>
+          <option value="profitInUSD">Growth In USD (Descending)</option>
+           <option value="valueInETH">Value In ETH (Ascending)</option>
+           <option value="valueInETH">Value In ETH (Descending)</option>
+         <option value="valueInUSD">Value In USD (Ascending)</option>
+         <option value="valueInUSD">Value In USD (Descending)</option>
+     </select></div>
          <Panel />
         
         
@@ -151,22 +169,22 @@ const [sortConfig, setSortConfig] = useState(null);
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <div>
-        <table >
+        <table id="jtable" >
           <thead>
             <tr>
-              <th class="wh"> <a style={{cursor:"pointer"}}  >Name</a></th>
-              <th class="wh"><a  style={{cursor:"pointer"}} >Growth In ETH</a> </th>
+              <th class="wh"> <a style={{cursor:"pointer"}} onClick={() => requestSort('name')}  className={getClassNamesFor('name')}>Name</a></th>
+              <th class="wh"><a  style={{cursor:"pointer"}} onClick={() => requestSort('profitInETH')}className={getClassNamesFor('profitInETH')}>Growth In ETH</a> </th>
 
-              <th class="wh"><a  style={{cursor:"pointer"}} > Growth In USD </a></th>
-              <th class="wh"><a  style={{cursor:"pointer"}} onclick={<img src ={sort}/>} >Top Assets</a> </th>
-              <th class="wh"> <a  style={{cursor:"pointer"}} onclick={<img src ={sort}/>} >Value In ETH </a></th>
-              <th class="wh"><a  style={{cursor:"pointer"}} onclick={<img src ={sort}/>} > Value In USD </a></th>
+              <th class="wh"><a  style={{cursor:"pointer"}} onClick={() => requestSort('profitInUSD')}  className={getClassNamesFor('profitInUSD')}> Growth In USD </a></th>
+              <th class="wh">Top Assets </th>
+              <th class="wh"> <a  style={{cursor:"pointer"}} onClick={() => requestSort('valueInETH')}  className={getClassNamesFor('valueInETH')}>Value In ETH </a></th>
+              <th class="wh"><a  style={{cursor:"pointer"}} onClick={() => requestSort('valueInUSD')}  className={getClassNamesFor('valueInUSD')}> Value In USD </a></th>
 
-              <th class="wh"> <a  style={{cursor:"pointer"}} onclick={<img src ={sort}/>} >7d</a> </th>
+              <th class="wh"> 7d </th>
             </tr>
           </thead>
 
-          <tbody>
+          <tbody >
             {userData &&
               userData.map((userData) => (
                 <tr key={userData.name}>
@@ -181,7 +199,7 @@ const [sortConfig, setSortConfig] = useState(null);
                   <td> {userData.profitInETH}</td>
                   <td>{userData.profitInUSD}</td>
 
-                  <td style={{flexDirection:"row-reverse"}} >
+                  <td >
                     {" "}
                     {JSON.parse(userData.balance).map((balance) => {
                       return (

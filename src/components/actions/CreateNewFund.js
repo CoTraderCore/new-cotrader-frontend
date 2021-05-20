@@ -14,7 +14,7 @@ import axios from 'axios'
 import { CloseButton } from 'react-bootstrap';
 import { Checkbox, Modal } from '@material-ui/core';
 import info from "../../Icons/info.png";
-import percent from "../../Icons/percent.png";
+
 
 const ETH_ADDRESS = '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE'
 const USD_ADDRESS = '0xe9e7cea3dedca5984780bafc599bd69add087d56'
@@ -43,7 +43,7 @@ const CreateNewFund =(props)=> {
   height: 100%;
   left: 0;
    top: 0;
-   background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.6);
   position: fixed;
   display: flex;
   justify-content: center;
@@ -240,7 +240,7 @@ select{
               
               startAdornment: (
                 <InputAdornment position="start">
-                  <img src={percent}/>
+                  %
                 </InputAdornment>
               )
             }}/>
