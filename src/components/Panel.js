@@ -8,12 +8,10 @@ export default  function Panel(){
 
     return (
         
- <div style={{marginLeft :"0px"}}>
+ <div style={{marginTop:"-40px"}}>
         
-        &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
-      &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <a style={{marginLeft:'100px', marginTop:"-5px", borderRadius:"20px", display:'inline', color:"#fff",fontFamily :"Segoe UI", fontSize:"15px",fontWeight:"bold", padding: "10px 20px 10px 10px",
-    backgroundColor: "#008AD8"}}  class= "show"onClick={()=>setShow(!show)} ><img style={{marginLeft:"5px", marginRight:"5px",height:"30px", marginTop:"-5px" }} src={rangefilter}/>Range Filter</a>
+      <a style={{marginLeft:'350px', marginTop:"", borderRadius:"10px", color:"#fff",fontFamily :"Microsoft YaHei Light", fontSize:"15px",fontWeight:"bold", padding: "10px 20px 10px 20px",
+    backgroundColor: "#008AD8"}}  class= "show"onClick={()=>setShow(!show)} >Filter</a>
       
       
                 {  
@@ -40,7 +38,7 @@ export default  function Panel(){
             </div>
         
             :null}
+            
             </div>
-    
     )
 }

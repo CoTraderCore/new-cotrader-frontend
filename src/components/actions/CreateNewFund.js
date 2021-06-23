@@ -7,12 +7,11 @@ import {
 } from '../../config.js' 
 import MuiAlert from "@material-ui/lab/Alert";
 import Snackbar from '@material-ui/core/Snackbar';
-import styled from 'styled-components'
+import  styled from 'styled-components'
 import setPending from '../../utils/setPending'
 
 import axios from 'axios'
-import { CloseButton } from 'react-bootstrap';
-import { Checkbox, Modal } from '@material-ui/core';
+import { Checkbox } from '@material-ui/core';
 import info from "../../Icons/info.png";
 
 
@@ -20,8 +19,15 @@ const ETH_ADDRESS = '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE'
 const USD_ADDRESS = '0xe9e7cea3dedca5984780bafc599bd69add087d56'
 
 const CreateNewFund =(props)=> {
-
-
+  
+  const [l, setL] = useState("");
+  const [m, setM] = useState("");
+  const [n, setN] = useState("");
+  const [s, setS] = useState("");
+  const [p, setP] = useState("");
+  const [t, setT] = useState("");
+  const [k, setK] = useState("");
+  const [j, setJ] = useState("");
   const [Show,setShow]=useState(false)
   const [Percent,setPercent]=useState(20)
   const [FundAsset,setFundAsset]=useState('BNB')
@@ -60,7 +66,7 @@ width: 500px;
   background: #fff;
   color:#000066;
   display: flex;
-  box-shadow: 0 0 12px #ffcc00;
+  
   border-radius: 12px;
 `
 const ModalContent = styled.div`
@@ -125,10 +131,10 @@ select{
   border-radius: 4px;
   font-weight: 800;
 }
-
-
-
 `
+
+//box-shadow: 0 0 12px #ffcc00;
+
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -221,11 +227,7 @@ select{
       
       
       {Show ? (
-        <Background
-          
-            
-          
-        >
+        <Background >
           
           <ModalWrapper >
           
@@ -245,7 +247,7 @@ select{
               )
             }}/>
              <div > Main fund asset % <a  data-toggle="popover" data-trigger="focus" title="With the help of this asset, investors will invest, calculate fund value ect" ><img style={{marginLeft: '5px'}}src={info} /></a></div>
-              <select type="select" name="FundAsset" onChange={e => setFundAsset(e.target.value)} >
+              <select id ="createfund" style={{marginTop:"10px"}} type="select" name="FundAsset" onChange={e => setFundAsset(e.target.value)} >
               <option value="BNB" selected>BNB</option>
                <option value="USD">USD</option></select>
                 </div>

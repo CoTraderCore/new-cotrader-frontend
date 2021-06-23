@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 const ViewFund = (props) => {
   const { address } = useParams();
   
-  return <div>Address: {address}</div>;
+  return <div style={{color: "#14044d"}}>Address: {address}</div>;
 };
 
 export default ViewFund;

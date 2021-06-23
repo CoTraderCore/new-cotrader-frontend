@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { observer } from "mobx-react";
 import Web3 from "web3";
-
+import wallet from "../Icons/wallet.png"
 const ConnectWallet = observer((props) => {
   const connectWallet = async () => {
     try {
@@ -52,7 +52,7 @@ const ConnectWallet = observer((props) => {
             <div>
              <span>Address:{props.store.accounts[0]}</span>
               <br />
-              <span>
+              <span >
                 Balance:{props.store.balance} ETH
                 <a
                   className="header-right wall"
@@ -70,10 +70,10 @@ const ConnectWallet = observer((props) => {
       ) : (
         <a
           className="header-right wall"
-          style={{ cursor: "pointer" }}
+          style={{ cursor: "pointer" ,fontSize:"18px"}}
           onClick={() => connectWallet()}
         >
-          Connect Wallet
+          Connect Wallet <img style={{marginLeft:"5px"}}src ={wallet}/>
         </a>
       )}
     </div>
