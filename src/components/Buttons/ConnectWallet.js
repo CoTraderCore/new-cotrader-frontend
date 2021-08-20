@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { observer } from "mobx-react";
+import { observer , inject} from "mobx-react";
 import Web3 from "web3";
-
-const ConnectWallet = observer((props) => {
+import wallet from "../Images/wallet.png"
+const ConnectWallet = (props) => {
   const connectWallet = async () => {
     try {
       await props.store.getweb3();
@@ -50,9 +50,9 @@ const ConnectWallet = observer((props) => {
         <span>
           {props.store.accounts ? (
             <div>
-              <span>Address:{props.store.accounts[0]}</span>
+             <span>Address:{props.store.accounts[0]}</span>
               <br />
-              <span>
+              <span >
                 Balance:{props.store.balance} ETH
                 <a
                   className="header-right wall"
@@ -70,14 +70,14 @@ const ConnectWallet = observer((props) => {
       ) : (
         <a
           className="header-right wall"
-          style={{ cursor: "pointer" }}
+          style={{ cursor: "pointer" ,fontSize:"18px"}}
           onClick={() => connectWallet()}
         >
-          Connect Wallet
+          Connect Wallet <img style={{marginLeft:"5px"}}src ={wallet}/>
         </a>
       )}
     </div>
   );
-});
+}
 
-export default ConnectWallet;
+export default inject('FundStore')(observer(ConnectWallet)); 

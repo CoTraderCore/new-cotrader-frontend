@@ -3,10 +3,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
+import { FundProvider } from './components/StateContext/Context'
+import FundStore from './components/StateContext/FundStore';
+import { Provider } from 'mobx-react';
 ReactDOM.render(
+  <Provider FundStore={FundStore}> <FundProvider ><App /></FundProvider></Provider>
+ 
   
-    <App />
+    
   ,
   document.getElementById('root')
 );
