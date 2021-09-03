@@ -3,6 +3,7 @@ import { observer, inject } from "mobx-react";
 import { FundContext } from '../StateContext/Context'
 import { APIEnpoint } from "../StateContext/config";
 import FundStore from '../StateContext/FundStore'
+import search from "../Images/search.png"
 
 const Search=()=>{
     const {userData, setUserData}= useContext(FundContext);
@@ -32,9 +33,10 @@ const Search=()=>{
     return(
          
       <input
-   
+      style={{paddingLeft:'10px',outlineColor:"#e5f866" , fontSize:'15px', fontFamily:'Dosis', backgroundColor:"#fefaec",cursor:'pointer', borderRadius:"7px",border:"2px solid #f0eec8", color:'#430f58',width:'210px',  height:'30px'}}
+    
           type="text"
-          placeholder="Search Funds"
+          placeholder="Search"
           onChange={(e) => {
             setKeyword(e.target.value);
             updateList(e.target.value);

@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@600&display=swap');
+
+
+
+
+
+
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.4);
+  transition: opacity 1ms;
+  visibility: hidden;
+  opacity: 0;
+}
+.overlay:target {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup {
+  margin: 70px auto;
+  padding: 20px;
+  background: #ADD8E6;
+  border-radius: 5px;
+  width: 20%;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+
+.popup h2 {
+  margin-top: 0;
+  color: #fff;
+  font-family:'Dosis';
+}
+.popup .close {
+  position: absolute;
+  top: 1px;
+  right: 20px;
+  transition: all 200ms;
+  font-size: 50px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #4682B4;
+}
+.popup .close:hover {
+  color: #663399;
+}
+.popup .content {
+  max-height: 30%;
+  font-family:'Dosis' ;
+  
+}
+
+.boxdesign{
+  width: 100%;
+  padding: 0px;
+  border: 1px solid #87CEEB;
+  border-radius: 7px;
+  resize: vertical;
+  height:30px;
+  color:#013c4d;
+  background:#fff;
+  margin-bottom:3px;
+  font-family: 'Dosis';
+ font-Size:18px;
+ padding-left: 10px;
+
+}
+@media screen and (max-width: 700px){
+  .box{
+    width: 70%;
+  }
+  .popup{
+    width: 70%;
+  }
+}
+

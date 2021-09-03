@@ -50,12 +50,12 @@ const ConnectWallet = (props) => {
         <span>
           {props.store.accounts ? (
             <div>
-             <span>Address:{props.store.accounts[0]}</span>
+             <span style={{color:'#fff'}}>Address:{props.store.accounts[0]}</span>
               <br />
-              <span >
+              <span style={{color:'#fff'}} >
                 Balance:{props.store.balance} ETH
                 <a
-                  className="header-right wall"
+                  
                   style={{ cursor: "pointer" }}
                   onClick={() => disconnectWallet()}
                 >
@@ -69,11 +69,11 @@ const ConnectWallet = (props) => {
         </span>
       ) : (
         <a
-          className="header-right wall"
-          style={{ cursor: "pointer" ,fontSize:"18px"}}
+          class='glow'
+          style={{ cursor: "pointer" ,fontSize:"24px" , color:'#fff'}}
           onClick={() => connectWallet()}
         >
-          Connect Wallet <img style={{marginLeft:"5px"}}src ={wallet}/>
+          Connect Wallet <img class='glow'style={{ height: "20px"}}src ={wallet}/>
         </a>
       )}
     </div>

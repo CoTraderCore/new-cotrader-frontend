@@ -3,7 +3,7 @@ import { observer, inject } from "mobx-react";
 import { FundContext } from '../StateContext/Context'
 import { APIEnpoint } from "../StateContext/config";
 import FundStore from '../StateContext/FundStore'
-import "../CSS/home.css"
+import "./popup.css"
 
 const AdvancedFilter= (props)=>{
     const {userData, setUserData}= useContext(FundContext);
@@ -133,8 +133,8 @@ return(
      //   Advanced Filter
     //  </a>
       <div>
-<div class="box">
-	<a  href="#popup1">AdvancedFilter</a>
+<div  >
+	<a   style={{textDecoration:'none',  border:"2px solid #f0eec8", borderRadius:"7px", padding:"6px", backgroundColor:"#fefaec",cursor:'pointer', color:"#430f58",  fontSize:'16px' ,fontFamily:"Dosis",  }} href="#popup1">Advanced Filter</a>
 </div>
 
       
@@ -145,37 +145,37 @@ return(
        
       <div id="popup1" class="overlay">
 	<div class="popup">
-		<h2 style={{fontFamily: "Calibri", color:'#fff'}}>Filter SmartFund</h2>
-		<a class="close" style={{marginRight:'5px', float:'right'}} href="#">&times;</a>
-		
+		<h2 style={{color:'#004b76'}}>Filter SmartFund</h2>
+		<a class="close"   href="#">&times;</a>
+		<div class="content">
 		<div class ="row">
-            <div class="col-25"><label style={{fontFamily: "Arial", fontSize:'14px', color:'#fff' }}>Fund Name</label></div>
-            <div class ="col-75"><input style={{}} value={fundname}  onChange={(e) =>{setFundName(e.target.value) ;
+            <div class="col-25"><label style={{fontSize:'16px', color:'#004b76' }}>Fund Name</label></div>
+            <div class ="col-75"><input class="boxdesign" value={fundname}  onChange={(e) =>{setFundName(e.target.value) ;
        filterfundname(e.target.value) }} type="text"  /></div>
           </div>
           <div class ="row">
-            <div class="col-25"><label style={{fontFamily: "Arial", fontSize:'14px', color:'#fff' }}>Manager Address</label> </div>
-            <div class ="col-75"><input  value={fundowner} onChange={(e) => {filterfundowner(e.target.value) ;setFundOwner(e.target.value )} } type="string"  /></div>
+            <div class="col-25"><label style={{fontSize:'16px', color:'#004b76' }}>Manager Address</label> </div>
+            <div class ="col-75"><input class="boxdesign" value={fundowner} onChange={(e) => {filterfundowner(e.target.value) ;setFundOwner(e.target.value )} } type="string"  /></div>
           </div>
           <div class ="row">
-            <div class="col-25"><label style={{fontFamily: "Arial", fontSize:'14px', color:'#fff' }} > Min Value in ETH</label> </div>
-            <div class ="col-75"><input minLength="10" type="number" value={ethValue} onChange={(e) => {filterethvalue(e.target.value);setETHValue(e.target.value)} } /></div>
+            <div class="col-25"><label style={{fontSize:'16px', color:'#004b76' }} > Min Value in ETH</label> </div>
+            <div class ="col-75"><input class="boxdesign" minLength="10" type="number" value={ethValue} onChange={(e) => {filterethvalue(e.target.value);setETHValue(e.target.value)} } /></div>
           </div>
           <div class ="row">
-            <div class="col-25"> <label style={{fontFamily: "Arial", fontSize:'14px', color:'#fff' }}> Min Value in USD</label> </div>
-            <div class ="col-75"><input type="number" value={usdValue} onChange={(e) => {filterusdvalue(e.target.value);setUSDValue(e.target.value)}}/></div>
+            <div class="col-25"> <label style={{fontSize:'16px', color:'#004b76' }}> Min Value in USD</label> </div>
+            <div class ="col-75"><input class="boxdesign" type="number" value={usdValue} onChange={(e) => {filterusdvalue(e.target.value);setUSDValue(e.target.value)}}/></div>
           </div>
           <div class ="row">
-            <div class="col-25"><label style={{fontFamily: "Arial", fontSize:'14px' , color:'#fff'}}> Min Profit in ETH </label></div>
-            <div class ="col-75"><input  type="number" value={ethProfit} onChange={(e) => {filterethprofit(e.target.value);setETHProfit(e.target.value)}} /></div>
+            <div class="col-25"><label style={{fontSize:'16px' , color:'#004b76'}}> Min Profit in ETH </label></div>
+            <div class ="col-75"><input class="boxdesign"  type="number" value={ethProfit} onChange={(e) => {filterethprofit(e.target.value);setETHProfit(e.target.value)}} /></div>
           </div>
           <div class ="row">
-            <div class="col-25"><label style={{fontFamily: "Arial", fontSize:'14px', color:'#fff' }}> Min Profit in USD </label></div>
-            <div class ="col-75"><input type="number"  value={usdProfit} onChange={(e) => {filterusdprofit(e.target.value);setUSDProfit(e.target.value)}}  /></div>
+            <div class="col-25"><label style={{fontSize:'16px', color:'#004b76' }}> Min Profit in USD </label></div>
+            <div class ="col-75"><input class="boxdesign" type="number"  value={usdProfit} onChange={(e) => {filterusdprofit(e.target.value);setUSDProfit(e.target.value)}}  /></div>
           </div>
           <div class ="row">
-            <div class="col-25"> <label style={{fontFamily: "Arial", fontSize:'14px' , color:'#fff' }}>Fund Type</label> </div>
-            <div class ="col-75"><select value={mainAsset} onChange={(e) =>{setMainAsset( e.target.value);filtermainasset(e.target.value)}}>
+            <div class="col-25"> <label style={{fontSize:'16px' , color:'#004b76' }}>Fund Type</label> </div>
+            <div class ="col-75"><select class="boxdesign" value={mainAsset} onChange={(e) =>{setMainAsset( e.target.value);filtermainasset(e.target.value)}}>
               <option value=""></option>
               <option value ="ETH">ETH</option>
               <option value ="USD">USD</option>
@@ -183,22 +183,22 @@ return(
               </div>
           </div>
           <div class ="row">
-            <div class="col-25"> <label style={{fontFamily: "Arial", fontSize:'14px', color:'#fff' }} >Time Creation</label> </div>
-            <div class ="col-75"><select value={timeCreation} onChange={(e) => {setTimeCreation(e.target.value);filtertime(e.target.value)}}>
+            <div class="col-25"> <label style={{fontSize:'16px', color:'#004b76' }} >Time Creation</label> </div>
+            <div class ="col-75"><select class="boxdesign" value={timeCreation} onChange={(e) => {setTimeCreation(e.target.value);filtertime(e.target.value)}}>
               <option value=""></option>
             <option value="Newest">Newest</option>
             <option value="Oldest" >Oldest</option>
             </select>
             </div>
           </div>
-          <div class ="row" style={{marginTop: '15px', fontSize:"13px"}}>
-         <a style ={{fontFamily:'Bahnschrift',fontSize:'15px', backgroundColor:"#004b76",color:"#fff", cursor:"pointer",padding:"7px 7px 7px 7px", borderRadius:"5px"}} onClick={resetFilter} >Reset</a>
+          <div class ="row" style={{marginTop: '15px'}}>
+         <a style ={{ fontFamily:'Dosis',fontSize:'20px', backgroundColor:"#004b76",color:"#fff", cursor:"pointer",padding:"7px 7px 7px 7px", borderRadius:"5px"}} onClick={resetFilter} >Reset</a>
 
           </div>
 	
 	</div>
 </div>
-  
+</div>
 
       
     
@@ -209,4 +209,3 @@ return(
 }
 
 export default inject('FundStore')(observer(AdvancedFilter));
-

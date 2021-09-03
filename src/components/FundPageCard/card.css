@@ -1,0 +1,51 @@
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0px;
+}
+
+.tabs label {
+  width:150px;
+  color:#fff;
+  padding: 20px;
+  margin-right: 0.2rem;
+  cursor: pointer;
+  
+  position: relative;
+  transition: background ease 0.2s;
+  text-align: center;
+  
+}
+ 
+
+.tabs label:hover{
+  box-sizing: border-box ;
+  border: 0.5px solid 	#4682B4;
+  background-color: 	#4682B4;
+}
+.tabs .tab {
+  order: 99;
+  flex-grow: 1;
+  width: 100%;
+  display: none;
+  background: #fff;
+  font-family: "Bahnschrift SemiBold";
+  color:#430f58;
+
+}
+ 
+.tabs input[type="radio"] {
+  display: none;
+}
+ 
+.tabs input[type="radio"]:checked + label {
+
+width:150px;
+
+}
+ 
+.tabs input[type="radio"]:checked + label + .tab {
+  display: block;
+  padding: 20px;
+}
+ 

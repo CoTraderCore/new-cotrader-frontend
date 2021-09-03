@@ -169,12 +169,12 @@ fontSize:13px;
     return (
       <>
       <div>
-        <a id="GFG" class="grad"  onClick={() => {props.account?setShow(true):setOpen(true)} }>
+        <a   onClick={() => {props.account?setShow(true):setOpen(true)} }>
         
         Create Fund
       </a>
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-      <Alert onClose={handleClose} severity="info">
+      <Snackbar  open={open} autoHideDuration={2000} onClose={handleClose}>
+      <Alert  onClose={handleClose} severity="info">
       Please Connect Your Account! 
       </Alert>
       </Snackbar>
@@ -213,7 +213,7 @@ fontSize:13px;
             checked={TradeVerification}
             onChange={() => setTradeVerification(!TradeVerification)} /><label style={{marginTop:'6px', paddingLeft:'0px', display:'left'}} value="Use trade verifiaction">Use Trade Verification</label></div>
                  
-            <a style={{float:'left',background: '#004b76', marginLeft:'-20px',marginTop:'40px' ,fontFamily:'Bahnschrift',fontSize:'18px', padding:"7px 7px 7px 7px", borderRadius:'4px', color:'#fff'}} type="submit" onClick={() => createNewFund()}>Create</a>
+            <a style={{float:'left',backgroundColor: '#B0C4DE', marginLeft:'-20px',marginTop:'40px' ,fontFamily:'Bahnschrift',fontSize:'18px', padding:"7px 7px 7px 7px", borderRadius:'4px', color:'#fff'}} type="submit" onClick={() => createNewFund()}>Create</a>
           </form>
           </ModalContent>
             </ModalWrapper>
