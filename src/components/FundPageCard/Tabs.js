@@ -25,8 +25,8 @@ const Tabs = (props) => {
       pieContainer: {
         width: "12%",
         height: "12%",
-        top: "67%",
-        left: "90%",
+        top: "95%",
+        left: "20%",
         position: "absolute",
         transform: "translate(-50%, -50%)"
       },
@@ -40,6 +40,7 @@ const Tabs = (props) => {
    
 
     return (
+      <div style={{overflowX:"hidden", backgroundRepeat:"no-repeat", overflowY:"auto"}}>
       <BrowserView>
         <div ><h1 style={{padiing :"20px", margin:"40px" ,textShadow: "0 0 15px #B0C4DE"}} > {
               userData
@@ -79,10 +80,10 @@ const Tabs = (props) => {
                            <img
                             autocomplete="false"
                             
-                          style={{outlineColor:"	#00FFFF"}}
+                          style={{border: "1px solid #183661", borderRadius:"14px"}}
                              
-                             height="25px"
-                             width="25px"
+                             height="30px"
+                             width="30px"
                              src={
                                `https://assets.coincap.io/assets/icons/${balance.symbol.toLowerCase()}@2x.png` 
                                  }  
@@ -200,13 +201,39 @@ const Tabs = (props) => {
   <input type="radio" name="tabs" id="tabtwo"/>
   <label for="tabtwo">Financials</label>
   <div class="tab">
-    
+  {
+              userData
+                .filter((userData) => userData.address === address)
+                .map((userData) => (
+                  <item key={ userData.address }>
+                     {JSON.parse(userData.shares).map((shares) => {
+                       
+                       return (
+                         <item key={shares.user} >
+             <p > Shares User&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{shares.user}</p>
+                <p > Shares&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {shares.shares}</p>
+                </item>
+                       );
+                     })}</item> 
+                      
+                
+                ))}
   </div>
   
   <input type="radio" name="tabs" id="tabthree"/>
   <label for="tabthree">Fees</label>
   <div class="tab">
-   
+  {
+              userData
+                .filter((userData) => userData.address === address)
+                .map((userData) => (
+                  <item key={ userData.address }>
+                    
+             <p > Main Asset&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{userData.mainAsset}</p>
+                <p > Manager Fee&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  {userData.managerFee/100}%</p>
+              
+                      </item> 
+                     ))}
   </div>
 
   <input type="radio" name="tabs" id="tabfour"/>
@@ -234,24 +261,52 @@ const Tabs = (props) => {
   </div>
   
 </div>
- 
+ <div style={{overflowY:"auto" , overflowX:"hidden"}}> {
+              userData
+                .filter((userData) => userData.address === address)
+                .map((userData) => (
+                  <item key={ userData.address }>
+                   {JSON.parse(userData.balance).map((balance) => {
+                       
+                       return (
+                         <item key={balance.address} >
+                            <img
+                            autocomplete="false"
+                            
+                          style={{border: "1px solid #183661", borderRadius:"14px", marginLeft:"30px"}}
+                             
+                             height="30px"
+                             width="30px"
+                             src={
+                               `https://assets.coincap.io/assets/icons/${balance.symbol.toLowerCase()}@2x.png` 
+                                 }  
+                                 onError={(e)=>{e.target.onerror = null; e.target.src="https://www.easymarkets.com.au/wp-content/uploads/2018/06/eM-ETH-Coin.png"}}
+                           />
+                           </item>
+                           );
+                         })}</item> 
+                          
+                    
+                    ))}</div>
+
 <div >  {
               userData
                 .filter((userData) => userData.address === address)
                 .map((userData) => (
                   <item key={ userData.address }>
-                    {JSON.parse(userData.balance).map((balance) => {
+                   {JSON.parse(userData.shares).map((shares) => {
                        
                        return (
-                         <item key={balance.address} >
-                           <div style={styles.pieContainer}>
+                         <item key={shares.user} >
+                           
+                           <div style=   {{width:"200px", marginLeft:"50px", marginBottom:"100px"}}>
                          
-                           <Pie  data={
+                           <Pie data={
                              {
                               
                                datasets:[{
                                  
-                                 data: [balance.assetValueInETHFromWei],
+                                 data: [shares.shares],
                                  backgroundColor: chartColors,
                                  hoverBackgroundColor: chartColors
                                  }]
@@ -266,7 +321,7 @@ const Tabs = (props) => {
                 
                 ))}</div>
          
-        </div></BrowserView>
+        </div></BrowserView></div>
     )
 }
 

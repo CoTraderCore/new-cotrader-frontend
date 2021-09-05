@@ -43,11 +43,12 @@ font-family: 'Bahnschrift SemiBold';
         border-radius: 5px;
         margin-left: -10px;
         display: inline;
-       height: 25px;
-      width:25px;
+       height: 27px;
+      width:27px;
+      border: 1px solid #183661;
       }
       td{
-          padding-left: 20px;
+          padding-left: 10px;
       }
      
 td{
@@ -87,7 +88,7 @@ td{
       .subnav {
         overflow: hidden;
       margin-left: 60px;
-    
+    margin-bottom: 5px;
         padding-top: 10px;
         padding-left: 15px;
         padding-right: 15px;
@@ -152,4 +153,4 @@ td{
     border: 2px solid rgba(8, 6, 78, 0.9);
   }
 
-  
+ 

@@ -24,7 +24,8 @@ import {
   isMobile
 } from "react-device-detect";
 import { ListGroup } from "react-bootstrap";
-import { fromWei} from "web3-utils";
+import { fromWei, toWei, toBN, isNumber} from "web3-utils";
+
 
 
 function Table(){
@@ -32,7 +33,7 @@ function Table(){
     const [sortType, setSortType] = useState('');
     const [txCount, setTxCount] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage] = useState(9);
+    const [postsPerPage] = useState(10);
     useEffect(() => {
       var web3 = new Web3(
         new Web3.providers.HttpProvider("https://bsc-dataseed.binance.org/")
@@ -60,10 +61,12 @@ function Table(){
     
       const indexOfLastPost = currentPage * postsPerPage;
       const indexOfFirstPost = indexOfLastPost - postsPerPage;
-      const currentPosts = userData.slice(indexOfFirstPost, indexOfLastPost);
-      const count = Math.ceil(userData.length / 9);
+      const currentPosts = FundStore.SmartFundsOriginal.slice(indexOfFirstPost, indexOfLastPost);
+      const count = Math.ceil(FundStore.SmartFundsOriginal.length / postsPerPage);
+     
       const handleChange = (event, value) => {
         setCurrentPage(value);
+       
       };
      
       const sortedItems = React.useMemo(() => {
@@ -127,7 +130,7 @@ function Table(){
 
 <div class="subnav">
 <Search/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<select  style={{borderRadius:"7px",outlineColor:"#e5f866",  height: "30px",  paddingLeft:'10px', width:'210px',color:'#430f58',  fontSize:'15px' ,fontFamily:'Dosis', backgroundColor:"#fefaec",cursor:'pointer', border:"2px solid #f0eec8"}} onChange={(e)=>requestSort(e.target.value)} > 
+<select  style={{borderRadius:"7px",outlineColor:"#e5f866",  height: "35px",  paddingLeft:'10px',color:'#430f58',  fontSize:'15px' ,fontFamily:'Dosis', backgroundColor:"rgb(238, 238, 248)",cursor:'pointer', border:"1px solid #D3D3D3"}} onChange={(e)=>requestSort(e.target.value)} > 
 
 <option value="">Sort By</option>
 <option value="name">Name (Descending)</option>
@@ -142,7 +145,7 @@ function Table(){
      <option value="valueInUSD">Value In USD (Descending)</option>
  </select>
  <div class='subnav-right'>
- <AdvancedFilter/></div></div><br/>
+ <AdvancedFilter/></div></div>
          <div style={{overflowX:"auto"}}>
          
        
@@ -192,7 +195,7 @@ function Table(){
                            autocomplete="false"
                            
                             class="coins"
-                            style={{border: "1px solid #693C5E", borderRadius:"15px" , backgroundColor:"#fff"}}
+                            style={{ borderRadius:"15px" , backgroundColor:"#fff"}}
                             height="25px"
                             width="25px"
                             src={
@@ -227,22 +230,40 @@ function Table(){
             </div>
             </BrowserView>
             <MobileView>
-              
+             
              <h2  style={{color:"#5c3e84", textAlign:'Center', fontSize:"30px"}}>Browse & Deposit</h2>
-            <div style={{alignItems:"Center", paddingLeft:"40px"}}><button style={{backgroundColor:"#5c3e84",width: '120px', color:"#fff",fontSize:'20px' , fontFamily:"Dosis", borderRadius:'10px',padding:'10px 10px 10px 10px' }}><CreateNewFund  account={walletStore.account} web3={walletStore.web3} accounts={walletStore.accounts} pending={updatePending}/></button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div style={{alignItems:"Center", paddingLeft:"50px"}}><button style={{backgroundColor:"#5c3e84",width: '120px', color:"#fff",fontSize:'20px' , fontFamily:"Dosis", borderRadius:'10px',padding:'10px 10px 10px 10px' }}><CreateNewFund  account={walletStore.account} web3={walletStore.web3} accounts={walletStore.accounts} pending={updatePending}/></button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         
       
         <button style={{ backgroundColor:"#5c3e84",  width: '120px', color:"#fff",fontSize:'20px' , fontFamily:"Dosis", borderRadius:'10px',padding:'10px 10px 10px 10px' }}><a >
           
            My Deposits
         </a></button></div><br/>
-      <div style={{alignItems:"Center", paddingLeft:"70px"}}><AdvancedFilter/></div>
-            <div class="columns">
-            { currentPosts &&
+      <div style={{display:"flex", width:"100%",alignItems:"center", marginLeft:"15px"}}><Search/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<AdvancedFilter/></div>
+      <select  style={{borderRadius:"7px",width:"90vw", marginTop:"5px", outlineColor:"#e5f866", marginLeft:"15px", height: "35px",  paddingLeft:'10px',color:'#430f58',  fontSize:'15px' ,fontFamily:'Dosis', backgroundColor:"rgb(238, 238, 248)",cursor:'pointer', border:"2px solid #f0eec8"}} onChange={(e)=>requestSort(e.target.value)} > 
+
+<option value="">Sort By</option>
+<option value="name">Name (Descending)</option>
+          <option value="name" >Name (Ascending)</option>
+     <option value="profitInETH" >Growth In ETH (Ascending)</option>
+     <option value="profitInETH" >Growth In ETH (Descending)</option>
+      <option value="profitInUSD"> Growth In USD (Ascending)</option>
+      <option value="profitInUSD">Growth In USD (Descending)</option>
+       <option value="valueInETH">Value In ETH (Ascending)</option>
+       <option value="valueInETH" >Value In ETH (Descending)</option>
+     <option value="valueInUSD">Value In USD (Ascending)</option>
+     <option value="valueInUSD">Value In USD (Descending)</option>
+ </select>
+ 
+             <div class="columns"> 
+            
+            {  currentPosts &&
               currentPosts.map((userData) => (
-  <ul key ={userData.name} class="price">
+                
+              
+  <item key ={userData.address} class="price">
     <li class="header">Name<br/>{userData.name}</li>
-    <li >Owner<br/>{userData.owner.slice(0, -10)+"..." }</li>
+    <li>Owner<br/>{userData.owner.slice(0, -10)+"..." }</li>
     <li>{JSON.parse(userData.balance).map((balance) => {
                        
                        return (
@@ -274,12 +295,14 @@ function Table(){
                       to={"/fund/" + userData.address} >
                       View Fund Details
                     </NavLink></li> <br/>
-  </ul>
+                   
+  </item>
               ))
-            }</div>
+           }{userData && <Pagination style={{marginRight:"70px", float:"right"}} count={count} variant="outlined" onChange={handleChange} color="primary" />} <br/><br/><br/><br/><br/> </div> <br/><br/><br/>
+  
               
-              {  <Pagination style={{marginRight:"60px", float:"right"}} count={count} onChange={handleChange} variant="outlined" color="primary" />}
-            </MobileView>
+            
+   </MobileView>
 
             </div>
             

@@ -33,7 +33,7 @@ const Search=()=>{
     return(
          
       <input
-      style={{paddingLeft:'10px',outlineColor:"#e5f866" , fontSize:'15px', fontFamily:'Dosis', backgroundColor:"#fefaec",cursor:'pointer', borderRadius:"7px",border:"2px solid #f0eec8", color:'#430f58',width:'210px',  height:'30px'}}
+      style={{paddingLeft:'10px',outlineColor:"#e5f866" , fontSize:'15px', fontFamily:'Dosis', backgroundColor:"rgb(238, 238, 248)",cursor:'pointer', borderRadius:"7px",border:"1px solid #D3D3D3", color:'#430f58',  height:'35px'}}
     
           type="text"
           placeholder="Search"

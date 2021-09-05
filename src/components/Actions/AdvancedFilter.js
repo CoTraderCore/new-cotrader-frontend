@@ -133,9 +133,8 @@ return(
      //   Advanced Filter
     //  </a>
       <div>
-<div  >
-	<a   style={{textDecoration:'none',  border:"2px solid #f0eec8", borderRadius:"7px", padding:"6px", backgroundColor:"#fefaec",cursor:'pointer', color:"#430f58",  fontSize:'16px' ,fontFamily:"Dosis",  }} href="#popup1">Advanced Filter</a>
-</div>
+
+	<a   style={{textDecoration:'none',   border:"2px solid #f0eec8", borderRadius:"7px", padding:"6px", backgroundColor:"rgb(238, 238, 248)",cursor:'pointer', color:"#430f58",  fontSize:'16px' ,fontFamily:"Dosis",  }} href="#popup1">Advanced Filter</a>
 
       
       

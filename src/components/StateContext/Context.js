@@ -9,6 +9,7 @@ import { walletStore } from "../Buttons/WalletStore";
 import ConnectWallet from "../Buttons/ConnectWallet";
 import logo from "../Images/logo.png"
 import "../StateContext/context.css"
+import { colors } from "@material-ui/core";
 
 
  const FundContext = createContext();
@@ -21,6 +22,7 @@ function FundProvider() {
     <FundContext.Provider value={FundStore}>
     <Router>
     <div class="header">
+    
   <a href="/" ><img style={{height:'30px'}} src={logo} class="img" alt="pic" /></a>
   <a href="/" class='glow'>For Depositors</a>
   <a href="/" class='glow'>For Pack Managers</a>
@@ -29,7 +31,12 @@ function FundProvider() {
     
      <ConnectWallet store={walletStore}/>
   </div>
+  
+  
+  <footer style={{height:"7vh", paddingTop:"10px",textAlign:"center",position:"fixed", bottom:"0", left:"0",width:"100%",  color:"#fff", backgroundColor:"#183661"}} ><img style={{paddingTop:"10px"}} height="25px" src={logo}/>&nbsp; &nbsp; &nbsp; &nbsp; Join the Community </footer>
+
 </div>
+
     <Switch>
       <Route exact path="/" component={Table} />
       
