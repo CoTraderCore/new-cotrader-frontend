@@ -47,7 +47,7 @@ function Table(){
           // console.log(jsonData)
     
           FundStore.initSFList(jsonData.result);
-          setUserData(FundStore.SmartFunds);
+          setUserData(FundStore.SmartFundsOriginal);
          
         };
     
@@ -61,8 +61,8 @@ function Table(){
     
       const indexOfLastPost = currentPage * postsPerPage;
       const indexOfFirstPost = indexOfLastPost - postsPerPage;
-      const currentPosts = FundStore.SmartFundsOriginal.slice(indexOfFirstPost, indexOfLastPost);
-      const count = Math.ceil(FundStore.SmartFundsOriginal.length / postsPerPage);
+      const currentPosts = userData.slice(indexOfFirstPost, indexOfLastPost);
+      const count = Math.ceil(userData.length / postsPerPage);
      
       const handleChange = (event, value) => {
         setCurrentPage(value);
@@ -70,9 +70,10 @@ function Table(){
       };
      
       const sortedItems = React.useMemo(() => {
-        const sortableItems = [...userData]
+        const sortableItems = [...currentPosts]
+        
         if (sortType !== null) {
-          FundStore.SmartFunds.sort((a, b) => {
+          userData.sort((a, b) => {
             if (a[sortType.key] < b[sortType.key]) {
               return sortType.direction === 'ascending' ? -1 : 1;
             }
@@ -171,7 +172,7 @@ function Table(){
             </tr>
         
                 
-                {currentPosts &&
+                {userData &&
               currentPosts.map((userData) => (
                 <tr key={userData.name}>
                 <td  >{userData.owner.slice(0, -30)+"..." }</td>

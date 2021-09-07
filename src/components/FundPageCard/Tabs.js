@@ -8,6 +8,7 @@ import { chartColors } from '../Colors/ChartColors';
 import FundStore from '../StateContext/FundStore';
 import { Pie } from "react-chartjs-2";
 import "./card.css"
+import "../FundListTable/MobileView.css"
 import {
   BrowserView,
   MobileView,
@@ -321,7 +322,56 @@ const Tabs = (props) => {
                 
                 ))}</div>
          
-        </div></BrowserView></div>
+        </div></BrowserView>
+        <MobileView>
+    <div class="columns">
+      <li>{
+              userData
+                .filter((userData) => userData.address === address)
+                .map((userData) => (
+                  <item key={ userData.address }>
+                  {userData.Name}
+                       {JSON.parse(userData.balance).map((balance) => {
+                       
+                       return (
+                         <item key={balance.address} id={balance.symbol}>
+                           <ListGroup style={{ padding:"2px"}}>
+                           <img
+                            autocomplete="false"
+                            
+                          style={{border: "1px solid #183661", borderRadius:"14px"}}
+                             
+                             height="30px"
+                             width="30px"
+                             src={
+                               `https://assets.coincap.io/assets/icons/${balance.symbol.toLowerCase()}@2x.png` 
+                                 }  
+                                 onError={(e)=>{e.target.onerror = null; e.target.src="https://www.easymarkets.com.au/wp-content/uploads/2018/06/eM-ETH-Coin.png"}}
+                           />
+                           </ListGroup>
+                         </item>
+                       );
+                     })} </item> 
+                     ))}</li>
+      <li>{
+              userData
+                .filter((userData) => userData.address === address)
+                .map((userData) => (
+                  <item key={ userData.address }>
+                  
+                       {JSON.parse(userData.balance).map((balance) => {
+                       
+                       return (
+                         <item key={balance.address} id={balance.symbol}>
+                           <ListGroup style={{ padding:"10px"}}>
+                          {balance.balance}
+                           </ListGroup>
+                         </item>
+                       );
+                     })} </item> 
+                     ))}</li>
+      </div>
+</MobileView></div>
     )
 }
 
