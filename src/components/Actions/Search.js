@@ -4,13 +4,13 @@ import { FundContext } from '../StateContext/Context'
 import { APIEnpoint } from "../StateContext/config";
 import FundStore from '../StateContext/FundStore'
 import search from "../Images/search.png"
-
+import Currentfunds from "../StateContext/Currentfunds";
 const Search=()=>{
     const {userData, setUserData}= useContext(FundContext);
     const [keyword,setKeyword] =useState("");
     const updateList = (input) => {
         // console.log(input);
-        const filtered = FundStore.SmartFunds.filter((userData) => {
+        const filtered = userData.filter((userData) => {
           return (
             userData.owner.toLowerCase().includes(input.toLowerCase()) ||
            
@@ -23,12 +23,12 @@ const Search=()=>{
             userData.historyProfitInUSD.toLowerCase().includes(input.toLowerCase()) 
            
           );
-        });
+        })
         if (input.length === 0) {
           // console.log(mobxStorage.SmartFunds);
-          setUserData(FundStore.SmartFunds);
+          setUserData(FundStore.SmartFundsOriginal);
         } else setUserData(filtered);
-      };
+   }
 
     return(
          
@@ -37,6 +37,7 @@ const Search=()=>{
     
           type="text"
           placeholder="Search"
+          value={keyword}
           onChange={(e) => {
             setKeyword(e.target.value);
             updateList(e.target.value);

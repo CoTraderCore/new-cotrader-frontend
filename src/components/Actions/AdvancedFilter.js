@@ -5,7 +5,7 @@ import { APIEnpoint } from "../StateContext/config";
 import FundStore from '../StateContext/FundStore'
 import "./popup.css"
 
-const AdvancedFilter= (props)=>{
+const AdvancedFilter= ()=>{
     const {userData, setUserData}= useContext(FundContext);
     const [Show,setShow]=useState(false);
 
@@ -123,7 +123,7 @@ const handleOpen = () => {
     setUSDValue('');
   
    
-   setUserData(FundStore.SmartFunds)
+   setUserData(FundStore.SmartFundsOriginal)
    }
 
 return(

@@ -258,7 +258,7 @@ function Table(){
  
              <div class="columns"> 
             
-            {  currentPosts &&
+            {  userData &&
               currentPosts.map((userData) => (
                 
               
@@ -293,7 +293,7 @@ function Table(){
     <li>History profit In USD<br/>{userData.historyProfitInUSD.slice(0, -10)}</li>
     <li>Main Asset <br/>{userData.mainAsset}</li>
     <li class="grey"> <NavLink  style={{textDecoration:'none'}} 
-                      to={"/fund/" + userData.address} >
+                      to={"/fund/" + userData.address}  >
                       View Fund Details
                     </NavLink></li> <br/>
                    

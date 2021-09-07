@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+
 import './App.css';
 import { createContext } from "react";
 import FundStore from './components/StateContext/FundStore'

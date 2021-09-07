@@ -10,12 +10,15 @@ import ConnectWallet from "../Buttons/ConnectWallet";
 import logo from "../Images/logo.png"
 import "../StateContext/context.css"
 import { colors } from "@material-ui/core";
-
-
+import FundStore  from "./FundStore";
+import { APIEnpoint } from "./config";
  const FundContext = createContext();
 
 function FundProvider() {
   const [userData, setUserData] = React.useState([])
+
+  
+    
  const FundStore = {userData, setUserData}
 	 
   return (
@@ -33,7 +36,7 @@ function FundProvider() {
   </div>
   
   
-  <footer style={{height:"7vh", paddingTop:"10px",textAlign:"center",position:"fixed", bottom:"0", left:"0",width:"100%",  color:"#fff", backgroundColor:"#183661"}} ><img style={{paddingTop:"10px"}} height="25px" src={logo}/>&nbsp; &nbsp; &nbsp; &nbsp; Join the Community </footer>
+  <footer style={{height:"7vh", paddingTop:"5px",textAlign:"center",position:"fixed", bottom:"0", left:"0",width:"100%",  color:"#fff", backgroundColor:"#183661"}} ><img style={{paddingTop:"10px"}} height="25px" src={logo}/> &nbsp; &nbsp; &nbsp; &nbsp;Join the Community</footer>
 
 </div>
 

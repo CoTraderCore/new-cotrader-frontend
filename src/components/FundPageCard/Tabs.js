@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo, useContext } from 'react';
 import axios from 'axios';
+import { EtherscanLink } from '../StateContext/config';
 import { useParams } from "react-router-dom";
 import { APIEnpoint } from '../StateContext/config';
 import { FundContext } from '../StateContext/Context'
@@ -18,6 +19,7 @@ import {
 import blueice from "../Images/blueice.jpg"
 import { ListGroup } from 'react-bootstrap';
 import { fromWei} from "web3-utils";
+import { NavLink } from 'react-bootstrap';
 const Tabs = (props) => {
     const { address } = useParams();
     const {userData, setUserData}= useContext(FundContext);
@@ -43,7 +45,40 @@ const Tabs = (props) => {
     return (
       <div style={{overflowX:"hidden", backgroundRepeat:"no-repeat", overflowY:"auto"}}>
       <BrowserView>
-        <div ><h1 style={{padiing :"20px", margin:"40px" ,textShadow: "0 0 15px #B0C4DE"}} > {
+        <div style={{paddingBottom:"100px"}} ><div > {
+              userData
+                .filter((userData) => userData.address === address)
+                .map((userData) => (
+                  <item key={ userData.address }>
+                   {JSON.parse(userData.shares).map((shares) => {
+                       
+                       return (
+                         
+                         <item key={shares.user} >
+                           {shares.shares >0 ?
+                         
+                           <div style={{float:"right", marginRight:"200px",marginTop:"80px",  width: "200px", height: "220px",boxSizing:"border-box", border:"5px solid #B0C4DE",  padding:"10px"}}>
+                                
+                         <span>{(userData.address).slice(0, -21)+"..."}</span>
+                           <Pie  data={
+                             {
+                              
+                               datasets:[{
+                                 
+                                 data: [shares.shares],
+                                 backgroundColor: chartColors,
+                                 hoverBackgroundColor: chartColors
+                                 }]
+                                
+                                }
+                           
+                           } /></div >:null}
+                         </item>
+                       );
+                     })}</item> 
+                      
+                
+                ))}</div><h1 style={{padiing :"20px", margin:"40px" ,textShadow: "0 0 15px #B0C4DE"}} > {
               userData
                 .filter((userData) => userData.address === address)
                 .map((userData) => (
@@ -262,35 +297,62 @@ const Tabs = (props) => {
   </div>
   
 </div>
- <div style={{overflowY:"auto" , overflowX:"hidden"}}> {
-              userData
+ 
+
+</div>
+         
+        </BrowserView>
+        <MobileView>
+          <div style={{paddingBottom:"100px"}}>
+        <div  class="columns"> 
+            
+            {  userData
                 .filter((userData) => userData.address === address)
                 .map((userData) => (
-                  <item key={ userData.address }>
-                   {JSON.parse(userData.balance).map((balance) => {
-                       
-                       return (
-                         <item key={balance.address} >
-                            <img
-                            autocomplete="false"
-                            
-                          style={{border: "1px solid #183661", borderRadius:"14px", marginLeft:"30px"}}
-                             
-                             height="30px"
-                             width="30px"
-                             src={
-                               `https://assets.coincap.io/assets/icons/${balance.symbol.toLowerCase()}@2x.png` 
-                                 }  
-                                 onError={(e)=>{e.target.onerror = null; e.target.src="https://www.easymarkets.com.au/wp-content/uploads/2018/06/eM-ETH-Coin.png"}}
-                           />
-                           </item>
-                           );
-                         })}</item> 
-                          
-                    
-                    ))}</div>
-
-<div >  {
+                
+              
+  <item key ={userData.address} class="price">
+    <li class="header">{userData.name}</li>
+   
+    
+    <li>Value In ETH<br/> {fromWei(userData.valueInETH).slice(0, -10)}</li>
+    <li>Value In USD<br/> {fromWei(userData.valueInUSD).slice(0, -10)}</li>
+    <li>Profit In ETH<br/>{fromWei(userData.profitInETH).slice(0, -10)}</li>
+    <li>Profit In USD<br/>{fromWei(userData.profitInUSD).slice(0, -10)}</li>
+    <li>History profit In ETH<br/>{fromWei(String(Number(userData.historyProfitInETH).toPrecision())).slice(0, -10)}</li>
+    <li>History profit In USD<br/>{userData.historyProfitInUSD.slice(0, -10)}</li>
+    
+   
+                   
+  </item>
+              ))
+           }</div>
+           <div style={{paddingBottom:"50px"}} class="columns"> 
+            
+            {  userData
+                .filter((userData) => userData.address === address)
+                .map((userData) => (
+                
+              
+  <item key ={userData.address} class="price">
+    <li class="header">Manager Info</li>
+    <li> Owner<br/>{userData.owner.slice(0, -10)+"..." }</li>
+    <li>Core Asset:&nbsp;&nbsp;{userData.mainAsset}</li>
+    <li>Type:&nbsp;&nbsp;{userData.fundType}</li>
+    <li>Fee:&nbsp;&nbsp;{userData.managerFee/100}%</li>
+    <li>Remaining Cut:&nbsp;&nbsp;{userData.managerRemainingCut}</li>
+    <li>Total Cut:&nbsp;&nbsp;{userData.managerTotalCut}</li>
+    <li>Version:&nbsp;&nbsp;{userData.version}</li>
+    
+    
+    
+   
+                   
+  </item>
+              ))
+           }</div>
+           <div style={{display:"flex", width:"100%",alignItems:"center"}}>
+           {
               userData
                 .filter((userData) => userData.address === address)
                 .map((userData) => (
@@ -298,11 +360,14 @@ const Tabs = (props) => {
                    {JSON.parse(userData.shares).map((shares) => {
                        
                        return (
-                         <item key={shares.user} >
-                           
-                           <div style=   {{width:"200px", marginLeft:"50px", marginBottom:"100px"}}>
                          
-                           <Pie data={
+                         <item key={shares.user} >
+                           {shares.shares >0 ?
+                         
+                           <div style={{marginLeft:"80px",  width: "200px", height: "220px", boxSizing:"border-box", border:"5px solid #B0C4DE",  padding:"10px"}}>
+                                
+                         <span>{(userData.address).slice(0, -21)+"..."}</span>
+                           <Pie  data={
                              {
                               
                                datasets:[{
@@ -314,63 +379,15 @@ const Tabs = (props) => {
                                 
                                 }
                            
-                           } /></div>
+                           } /></div >:null}
                          </item>
                        );
                      })}</item> 
                       
                 
-                ))}</div>
-         
-        </div></BrowserView>
-        <MobileView>
-    <div class="columns">
-      <li>{
-              userData
-                .filter((userData) => userData.address === address)
-                .map((userData) => (
-                  <item key={ userData.address }>
-                  {userData.Name}
-                       {JSON.parse(userData.balance).map((balance) => {
-                       
-                       return (
-                         <item key={balance.address} id={balance.symbol}>
-                           <ListGroup style={{ padding:"2px"}}>
-                           <img
-                            autocomplete="false"
-                            
-                          style={{border: "1px solid #183661", borderRadius:"14px"}}
-                             
-                             height="30px"
-                             width="30px"
-                             src={
-                               `https://assets.coincap.io/assets/icons/${balance.symbol.toLowerCase()}@2x.png` 
-                                 }  
-                                 onError={(e)=>{e.target.onerror = null; e.target.src="https://www.easymarkets.com.au/wp-content/uploads/2018/06/eM-ETH-Coin.png"}}
-                           />
-                           </ListGroup>
-                         </item>
-                       );
-                     })} </item> 
-                     ))}</li>
-      <li>{
-              userData
-                .filter((userData) => userData.address === address)
-                .map((userData) => (
-                  <item key={ userData.address }>
-                  
-                       {JSON.parse(userData.balance).map((balance) => {
-                       
-                       return (
-                         <item key={balance.address} id={balance.symbol}>
-                           <ListGroup style={{ padding:"10px"}}>
-                          {balance.balance}
-                           </ListGroup>
-                         </item>
-                       );
-                     })} </item> 
-                     ))}</li>
-      </div>
+                ))}
+</div>
+</div>
 </MobileView></div>
     )
 }

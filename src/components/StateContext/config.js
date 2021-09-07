@@ -1,8 +1,8 @@
 export const APIEnpoint =  "https://api-bsc.cotrader.com/api/smartfunds"
 export const BloxyLink= "https://bloxy.info/portfolios/"
 export const Tokenimagelink="https://token.enzyme.finance/"
-
-
+export const NeworkID = 1
+export const EtherscanLink = 'https://etherscan.io/'
 export const SmartFundRegistryADDRESS = '0x759563F3A0f51A202e504BE5Ea3DeF0D3b4e6933'
 
 export const SmartFundRegistryABIV9 = [
